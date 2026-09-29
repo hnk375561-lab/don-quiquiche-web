@@ -3,6 +3,12 @@ window.SITE = {
   siteUrl: null, // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
   ogImage: null, // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
   hero: { image: null }, // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
+  // SEO / redes: el build genera <title>, description, og:* y twitter:* desde acá (no editar index.html a mano)
+  title: "Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay",
+  description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios, carta y cómo llegar.",
+  socialDescription: "Parrilla, mesa y música en Ruta 39. Concepción del Uruguay, Entre Ríos.",
+  locale: "es_AR",
+  ogType: "website", // "restaurant" no es un tipo OG válido (sería "restaurant.restaurant" con propiedades extra); el tipo de negocio ya está en el JSON-LD
   name: "Parrilla Don Quiquiche",
   fullName: "Parrilla Don Quiquiche, Ambiente Familiar, Peña",
   address: "Ruta Provincial 39, Concepción del Uruguay, Entre Ríos", // A (turismo/Google). "Ruta 39 y 42": PENDIENTE

@@ -1,6 +1,25 @@
 # Parrilla Don Quiquiche — sitio estático
-Sin dependencias (Node solo para `scripts/`). Abrir `index.html` o `python3 -m http.server`. Desplegar la carpeta en cualquier hosting estático (GitHub Pages, Netlify, etc.).
-**Editar datos:** `data/site.js` (teléfono, WhatsApp, horarios, redes, categorías, carta, eventos, galería). Después de editar, correr `node scripts/build.mjs` (idempotente): valida los datos y regenera en `index.html` los enlaces, horarios, dirección, JSON-LD, canonical/OG y el sitemap desde esa misma fuente. Así el contacto y la ubicación funcionan aunque el JS falle. No editar esos bloques a mano.
+
+Sin dependencias npm. Abrir `index.html` o `npm start` (`python3 -m http.server 8080`). Desplegar la carpeta en cualquier hosting estático.
+
+**Editar datos:** solo `data/site.js` (title, description, teléfono, WhatsApp, horarios, redes, categorías, carta, eventos, galería). Después correr:
+
+```
+npm run build   # valida data/site.js (URLs solo https, assets locales, esquema por campo) y regenera lo que está entre markers BUILD en index.html + robots/sitemap
+npm run check   # verifica que index.html está EXACTAMENTE sincronizado con data/site.js + SEO, rel, IDs, accesibilidad básica, JSON-LD
+npm run audit   # (opcional) navegador real: responsive, axe-core WCAG 2.2 AA, contraste por píxeles, teclado
+```
+
+`npm run audit` no forma parte del sitio: `npm i -D playwright axe-core && npx playwright install chromium` una sola vez.
+
+**Markers BUILD en `index.html`** (el build solo reemplaza lo que está entre `<!--BUILD:X-->` y `<!--/BUILD:X-->`; el resto del HTML es tuyo):
+`SEO`, `LD`, `STATIC_HOURS`, `STATIC_ADDRESS`, `STATIC_CATEGORIES`, `STATIC_YEAR` y `STATIC_LINK`. Los enlaces críticos se declaran así y el build genera el `<a>` completo (href, target, rel, aria-label):
+
+```html
+<!--BUILD:STATIC_LINK kind="wa" val="reserva" class="btn btn-p" label="Consultar por WhatsApp"--><!--/BUILD:STATIC_LINK-->
+```
+`kind`: `wa` (con `val` = clave de `waMessages`), `map`, `ig`, `fb`, `tel`, `menu` (con `label` y `alt`). `wrap="li"` lo envuelve en `<li>`. Si el dato es `null` (p. ej. `facebook`), el enlace desaparece del HTML.
+
 ## Pendientes (no inventados)
 - Dominio → canonical, og:url, sitemap.xml, og:image (foto real).
 - Pin oficial de Maps, "Ruta 39 y 42", horario del sábado hasta 04:00, carta oficial, fotos autorizadas/logo, agenda confirmada, delivery/reservas/estacionamiento/accesibilidad (solo directorios: no publicados).

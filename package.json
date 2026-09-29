@@ -1,5 +1,14 @@
 {
   "name": "don-quiquiche-web",
   "private": true,
-  "scripts": { "build": "node scripts/build.mjs", "check": "node scripts/check.mjs", "start": "python3 -m http.server 8080" }
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "start": "python3 -m http.server 8080",
+    "audit": "node scripts/audit.mjs"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.0",
+    "playwright": "^1.56.0"
+  }
 }
