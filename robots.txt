@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://hnk375561-lab.github.io/don-quiquiche-web/sitemap.xml

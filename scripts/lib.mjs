@@ -72,8 +72,8 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
   // Dominio e imagen social
   if (S.siteUrl !== null) {
     let okUrl = isHttpsUrl(S.siteUrl);
-    if (okUrl) { try { okUrl = new URL(S.siteUrl).origin === S.siteUrl; } catch { okUrl = false; } }
-    if (!okUrl) bad('siteUrl', 'null o https://dominio.tld sin barra final ni ruta');
+    if (okUrl) { try { {const u=new URL(S.siteUrl);okUrl = !u.search && !u.hash && !S.siteUrl.endsWith('/') && u.href.replace(/\/$/,'') === S.siteUrl;} } catch { okUrl = false; } }
+    if (!okUrl) bad('siteUrl', 'null o https://dominio.tld[/subruta] sin barra final');
   }
   if (S.ogImage !== null) {
     asset('ogImage', S.ogImage);

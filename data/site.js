@@ -1,8 +1,8 @@
 /* ÚNICA fuente de datos editable. Cada dato: status + fuente (ver README). */
 window.SITE = {
-  siteUrl: null, // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
+  siteUrl: "https://hnk375561-lab.github.io/don-quiquiche-web", // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
   ogImage: "assets/og.jpg", // 1200x630, recorte de la foto de la parrilla. Se emite en el HTML cuando exista siteUrl // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
-  hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, portrait:{src:"assets/hero-parrilla-m.webp", w:800, h:738}, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
+  hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, portrait:{src:"assets/hero-parrilla-m.webp", w:800, h:738}, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
   // SEO / redes: el build genera <title>, description, og:* y twitter:* desde acá (no editar index.html a mano)
   title: "Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay",
   description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña. Consultá horarios y cómo llegar.",
@@ -40,11 +40,9 @@ window.SITE = {
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
   gallery: [
-    {src:"assets/sala1.webp", w:1200, h:554, alt:"Salón de Parrilla Don Quiquiche con las mesas ocupadas y un grupo musical tocando en vivo bajo el cartel del local", credit:"Parrilla Don Quiquiche", status:"authorized"},
-    {src:"assets/baile.webp", w:1200, h:675, alt:"Noche de baile en el salón, con luces de colores y gente bailando frente al escenario", credit:"Parrilla Don Quiquiche", status:"authorized"},
-    {src:"assets/plato1.webp", w:900, h:1200, alt:"Plato de carne gratinada con queso, tomate y orégano, con papas fritas", credit:"Parrilla Don Quiquiche", status:"authorized"},
-    {src:"assets/plato2.webp", w:900, h:1200, alt:"Dos platos de carne rebozada con queso, salsa, huevo frito y papas fritas", credit:"Parrilla Don Quiquiche", status:"authorized"},
-    {src:"assets/sala2.webp", w:1200, h:554, alt:"Salón lleno durante una actuación en vivo, con el escenario al fondo", credit:"Parrilla Don Quiquiche", status:"authorized"}
+    {src:"assets/mesa-vino.webp", w:428, h:662, alt:"Parrillita con achuras y chorizos sobre la mesa, con una botella de vino y el salón al fondo", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
+    {src:"assets/copas.webp", w:427, h:655, alt:"Dos copas de vino tinto con hielo sobre la mesa, con el salón y el cartel del local al fondo", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
+    {src:"assets/brindis.webp", w:576, h:664, alt:"Botella de champagne dulce junto a postres y copas, bajo luces de colores", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"}
   ], // fotos de la página del local; PENDIENTE: OK del dueño (authorizedBy/authorizedAt). Opcionales: caption, authorizedBy, authorizedAt
   // "Antes de venir" (pagos, estacionamiento, accesibilidad, niños, mascotas…). Solo se publica lo que tenga status "confirmed-by-business".
   // Ejemplo: { label: "Medios de pago", text: "…", status: "confirmed-by-business", verifiedBy: "Nombre de quien confirmó", updatedAt: "YYYY-MM-DD" }

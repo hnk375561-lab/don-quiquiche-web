@@ -48,7 +48,7 @@ no(![...html.matchAll(/<a[^>]*data-(wa|map|ig|tel|menu)[^>]*>/g)].every(m => /hr
   const css = r('styles.css');
   [...css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)].forEach(m => { no(/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1]) && !m[1].startsWith('data:'), 'styles.css carga un recurso externo: ' + m[1]); no(!/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1]) && !fs.existsSync(m[1]), 'styles.css: archivo inexistente ' + m[1]); });
   no(/@import/.test(css), 'styles.css usa @import (bloqueante)');
-  const ext = [...(html.replace(/<a\b[^>]*>/g, '') + '<!-- -->').matchAll(/<(?:link|script|img|source|iframe)\b[^>]*\s(?:src|href|srcset)="(https?:)?\/\/[^"]+"/g)]; no(ext.length, 'index.html carga recursos de terceros (link/script/img): ' + ext.map(x => x[0].slice(0, 70)).join(' | '));
+  const ext = [...(html.replace(/<a\b[^>]*>/g, '').replace(/<link rel="canonical"[^>]*>/g, '') + '<!-- -->').matchAll(/<(?:link|script|img|source|iframe)\b[^>]*\s(?:src|href|srcset)="(https?:)?\/\/[^"]+"/g)]; no(ext.length, 'index.html carga recursos de terceros (link/script/img): ' + ext.map(x => x[0].slice(0, 70)).join(' | '));
   const csp = (/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/.exec(html) || [, ''])[1];
   no(!csp, 'falta la meta Content-Security-Policy'); no(csp && /unsafe-inline|unsafe-eval|\*/.test(csp.replace(/style-src[^;]*;?/, '')), 'CSP demasiado permisiva'); no(csp && !/default-src 'none'/.test(csp) || (csp && !/base-uri 'none'/.test(csp)), "CSP sin default-src 'none' / base-uri 'none'");
   no(!/<meta name="robots" content="[^"]*\bindex\b[^"]*"/.test(html) || /noindex/.test((/<meta name="robots" content="([^"]*)"/.exec(html) || [, ''])[1]), 'meta robots ausente o con noindex en index.html');

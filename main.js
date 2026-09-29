@@ -2,8 +2,10 @@
 
 (()=>{const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const hdr=$('#site-header'),bar=$('.progress'),img=$('.hero-img'),hero=$('.hero');const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;let tk=0;const coarse=matchMedia('(pointer:coarse)').matches;
-const upd=()=>{tk=0;const y=scrollY,m=document.documentElement.scrollHeight-innerHeight;bar&&bar.style.setProperty('--p',m>0?(y/m).toFixed(4):0);if(!rm&&img&&y<innerHeight*1.2&&!coarse)img.style.transform='translate3d(0,'+(y*.16).toFixed(1)+'px,0) scale(1.06)'};
-addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true});upd();
+let mx=1,ih=innerHeight,ticking=0;const meas=()=>{mx=Math.max(1,document.documentElement.scrollHeight-innerHeight);ih=innerHeight};meas();addEventListener('resize',meas,{passive:true});addEventListener('load',meas);
+const upd=()=>{tk=0;const y=scrollY;if(bar)bar.style.transform='scaleX('+Math.min(1,y/mx).toFixed(4)+')';if(!rm&&img&&!coarse&&y<ih*1.2)img.style.transform='translate3d(0,'+(y*.16).toFixed(1)+'px,0) scale(1.06)'};
+addEventListener('scroll',()=>{if(!tk)tk=requestAnimationFrame(upd)},{passive:true});
+upd();
 /* Estado abierto/cerrado (hora de Argentina) */
 const H=[[[11,15],[20,24]],[[11,15],[20,24]],[[11,15],[20,24]],[[11,15],[20,24]],[[11,15],[20,24]],[[11,28]],[[0,4],[11,15]]];/* lun..dom; sáb hasta 04:00 del domingo */
 const fmt=h=>String(h%24).padStart(2,'0')+':00';
