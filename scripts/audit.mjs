@@ -57,7 +57,7 @@ for (const [w, h] of [[375, 667], [1440, 900]]) {
   info.push(`[${vp}] teclado: ${n} elementos focuseables, recorrido cíclico`);
   await p.goto(URL_); await p.keyboard.press('Tab'); const sk = await p.evaluate(() => { const r = document.activeElement.getBoundingClientRect(); return { txt: document.activeElement.textContent, vis: r.left >= 0 && r.top >= 0 }; });
   if (!sk.vis || !/contenido/i.test(sk.txt)) fails.push(`[${vp}] skip-link no es el primer foco o no se ve`);
-  const anchors = await p.evaluate(async () => { const bad = []; for (const id of ['lugar', 'carta', 'pena', 'horarios', 'llegar']) { location.hash = '#' + id; await new Promise(r => setTimeout(r, 700)); if (document.querySelector(`#${id} h2`).getBoundingClientRect().top < document.querySelector('header').getBoundingClientRect().bottom - 1) bad.push(id); } return bad; });
+  const anchors = await p.evaluate(async () => { const bad = []; for (const id of ['casa', 'mesa', 'pena', 'galeria', 'visita']) { location.hash = '#' + id; await new Promise(r => setTimeout(r, 700)); if (document.querySelector(`#${id} h2`).getBoundingClientRect().top < document.querySelector('header').getBoundingClientRect().bottom - 1) bad.push(id); } return bad; });
   anchors.forEach(a => fails.push(`[${vp}] el header fijo tapa el título de #${a}`));
   if (w < 800) {
     await p.goto(URL_); for (let i = 0; i < 3; i++) await p.keyboard.press('Tab'); await p.keyboard.press('Enter');

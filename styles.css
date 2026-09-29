@@ -1,7 +1,6 @@
 /* Parrilla Don Quiquiche — "Brasa y mesa"
    Vino hondo, hueso de papel y una sola brasa. Big Shoulders (marca) + Playfair (voz) + Inter (información).
    Movimiento: una apertura orquestada en el hero; el resto responde al scroll con CSS nativo. Todo autoalojado. */
-@font-face{font-family:Playfair;src:url(assets/fonts/playfair-display-latin-wght-normal.woff2) format('woff2');font-style:normal;font-weight:400 900;font-display:swap}
 @font-face{font-family:Playfair;src:url(assets/fonts/playfair-display-latin-wght-italic.woff2) format('woff2');font-style:italic;font-weight:400 900;font-display:swap}
 @font-face{font-family:Inter;src:url(assets/fonts/inter-latin-wght-normal.woff2) format('woff2');font-weight:100 900;font-display:swap}
 @font-face{font-family:Shoulders;src:url(assets/fonts/big-shoulders-display-latin-wght-normal.woff2) format('woff2');font-weight:100 900;font-display:swap}
@@ -37,7 +36,7 @@ p{max-width:34rem;text-wrap:pretty}
 #site-header{position:fixed;inset:0 0 auto;z-index:50;color:var(--hueso);transition:background .4s,color .4s,box-shadow .4s}
 #site-header.scrolled{background:rgba(242,235,222,.94);color:var(--text);box-shadow:0 1px 0 var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;padding:.9rem var(--pad);max-width:100rem;margin:auto}
-.brand{font:700 1.7rem/1 var(--brand);text-transform:uppercase;letter-spacing:.03em;text-decoration:none}
+.brand{position:relative;z-index:2;display:inline-flex;align-items:center;min-height:44px;font:700 1.7rem/1 var(--brand);text-transform:uppercase;letter-spacing:.03em;text-decoration:none}
 #nav{display:flex;align-items:center;gap:clamp(1rem,2.4vw,2.2rem)}
 #nav a{text-decoration:none;font-size:.92rem;font-weight:500;min-height:44px;display:inline-flex;align-items:center;background:linear-gradient(currentColor,currentColor) 0 78%/0 1px no-repeat;transition:background-size .4s var(--ease)}
 #nav a:hover{background-size:100% 1px}
@@ -51,8 +50,8 @@ p{max-width:34rem;text-wrap:pretty}
 .hero{position:relative;min-height:100svh;min-height:100dvh;background:var(--vino);color:var(--hueso);display:flex;align-items:flex-end;overflow:hidden}
 .hero-image{position:absolute;inset:0}
 .hero-pic,.hero-img{width:100%;height:100%}
-.hero-img{object-fit:cover;object-position:50% 70%;filter:saturate(.9) contrast(1.05)}
-.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,7,12,.55) 0,rgba(28,7,12,.05) 35%,rgba(28,7,12,.85) 100%)}
+.hero-img{object-fit:cover;object-position:50% 70%;filter:saturate(.9) contrast(1.05) brightness(.72)}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,7,12,.8) 0,rgba(28,7,12,.5) 30%,rgba(28,7,12,.55) 60%,rgba(28,7,12,.94) 100%)}
 .hero-content{position:relative;width:100%;padding:8rem var(--pad) clamp(1.5rem,4vh,3rem);max-width:100rem;margin:auto}
 h1{line-height:.8;letter-spacing:0;font-style:normal}
 .don{display:block;font:italic 400 clamp(1.4rem,3.4vw,2.8rem)/1.2 var(--serif);letter-spacing:-.01em;margin-bottom:.6rem}
@@ -85,8 +84,9 @@ section{position:relative}
 .archivo{padding:clamp(5rem,11vw,10rem) var(--pad);max-width:100rem;margin:auto}
 .archivo-head{max-width:36rem;margin-bottom:clamp(2.5rem,6vw,5rem)}.archivo-head .kicker{display:none}.archivo-head p{margin-top:1.4rem;color:var(--muted)}
 #gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1rem,2vw,2rem);align-items:start}
-#gallery figure{cursor:zoom-in;grid-column:span 4;overflow:hidden;position:relative}
+#gallery figure{grid-column:span 4;overflow:hidden;position:relative}
 #gallery figure:nth-child(1){grid-column:1/6}#gallery figure:nth-child(2){grid-column:6/9;margin-top:6rem}#gallery figure:nth-child(3){grid-column:9/13;margin-top:2rem}
+#gallery .zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
 #gallery img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;transition:transform .9s var(--ease)}
 #gallery figure:hover img{transform:scale(1.04)}
 #gallery figcaption{font-size:.82rem;color:var(--muted);padding-top:.6rem}
@@ -99,13 +99,13 @@ section{position:relative}
 .visit-photo{aspect-ratio:5/4}
 .contact{background:var(--vino);color:var(--hueso);display:grid;min-height:70vh;align-items:end;overflow:hidden}
 .contact>*{grid-area:1/1}
-.contact-photo{width:100%;height:100%;object-fit:cover;opacity:.45}
+.contact-photo{width:100%;height:100%;object-fit:cover;opacity:.3}
 .contact-copy{position:relative;padding:clamp(5rem,10vw,9rem) var(--pad)}.contact-copy h2{font-size:clamp(2.8rem,8vw,7.5rem)}
 .contact-copy p{margin-top:1.4rem;color:var(--hueso)}.contact-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem 2rem;margin-top:2rem}.contact-actions .under-link{margin:0}
 #antes{padding:5rem var(--pad);background:var(--papel)}#antes .split{max-width:70rem;margin:auto}#antes .eyebrow{color:var(--muted);font-size:.9rem}#antes .h div{padding:1rem 0;border-bottom:1px solid var(--line)}#antes dt{font-weight:600}
 footer{background:#12040a;color:var(--hueso);padding:clamp(3rem,6vw,5rem) var(--pad) 6.5rem}
 .footer-main{max-width:100rem;margin:auto;display:grid;grid-template-columns:auto auto 1fr;gap:1.5rem 4rem;align-items:end}
-.footer-mark{font:800 clamp(4rem,14vw,13rem)/.8 var(--brand);text-transform:uppercase;grid-column:1/-1;margin-bottom:1rem;color:var(--vino-3)}
+.footer-mark{font:800 clamp(4rem,14vw,13rem)/.8 var(--brand);text-transform:uppercase;grid-column:1/-1;margin-bottom:1rem;color:#866a66}
 footer li a{display:inline-flex;min-height:44px;align-items:center;text-decoration:none}footer li a:hover{color:var(--brasa)}
 .footer-hours{color:var(--ceniza);font-size:.92rem;justify-self:end;text-align:right}
 .footer-bottom{max-width:100rem;margin:2rem auto 0;display:flex;justify-content:space-between;gap:1rem;color:var(--ceniza);border-top:1px solid rgba(236,228,214,.15);padding-top:1rem}
@@ -143,13 +143,14 @@ footer li a{display:inline-flex;min-height:44px;align-items:center;text-decorati
 }
 /* Responsive */
 @media (max-width:860px){
+html{scroll-padding-bottom:6rem}
 #burger{display:block}
 #nav{position:fixed;inset:0;background:var(--vino);color:var(--hueso);flex-direction:column;justify-content:center;align-items:flex-start;gap:.4rem;padding:5rem var(--pad);transform:translateY(-100%);visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s;overflow-y:auto}
 #nav.open{transform:none;visibility:visible;transition:transform .6s var(--ease)}
 #nav a{font:400 2.4rem/1.2 var(--serif);font-style:italic}#nav .nav-cta{margin-top:1.2rem;font:600 1rem var(--sans);min-height:3rem}
 #burger{position:relative;z-index:2}#site-header.menu-open{background:none;color:var(--hueso);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 .casa,.visit{grid-template-columns:1fr}.casa-photo{grid-row:auto}
-.mesa-head{grid-column:1/-1}.dish-a{grid-column:1/9}.dish-b{grid-column:5/13;margin-top:-2rem;grid-row:3}.cats{grid-row:4;margin-top:-2rem}
+.mesa-head{grid-column:1/-1}.dish-a{grid-column:1/9}.dish-b{grid-column:5/13;margin-top:1.5rem;grid-row:3}.cats{grid-row:4;margin-top:-2rem}
 .pena-photo{aspect-ratio:4/3}.pena-panel{margin:-3rem var(--pad) 3rem;width:auto}
 #gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:1rem;margin:0 calc(-1 * var(--pad));padding:0 var(--pad) 1rem}
 #gallery figure,#gallery figure:nth-child(n){flex:0 0 72%;scroll-snap-align:start;margin-top:0}

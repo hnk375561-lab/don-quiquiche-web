@@ -1,4 +1,9 @@
-# Dirección artística — Don Quiquiche
+# Dirección artística — Don Quiquiche (rediseño "Brasa y mesa")
+
+Vino hondo, hueso de papel y una sola brasa naranja (barra de lectura, estado "abierto" y hover). Big Shoulders para la marca en gran formato, Playfair itálica para la voz editorial e Inter para la información. Un único momento orquestado (apertura del hero) y revelados por scroll en CSS puro. Sin librerías, sin terceros, contenido solo verificable.
+
+---
+## Versión anterior
 
 ## Decisión
 

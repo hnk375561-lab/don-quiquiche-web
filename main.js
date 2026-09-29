@@ -1,14 +1,16 @@
 /* Enlaces desde data/site.js, menú, estado "abierto ahora", galería ampliada y control de movimiento. Sin dependencias. */
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)], S = window.SITE;
-  if (!S) return;
   const wa = k => `https://wa.me/${S.whatsapp}?text=${encodeURIComponent(S.waMessages[k] || S.waMessages.general)}`;
+  if (S) {
   const setUrl = (a, u) => { try { const x = new URL(u); if (x.protocol === 'tel:') { a.href = x.href; return; } if (x.protocol !== 'https:') return; a.href = x.href; a.target = '_blank'; a.rel = 'noopener noreferrer'; } catch {} };
   $$('[data-wa]').forEach(a => setUrl(a, wa(a.dataset.wa)));
   $$('[data-map]').forEach(a => setUrl(a, S.mapsUrl));
   $$('[data-ig]').forEach(a => setUrl(a, S.instagram));
   $$('[data-tel]').forEach(a => setUrl(a, 'tel:' + S.phone));
   $$('[data-menu]').forEach(a => { if (S.menu.url) { setUrl(a, S.menu.url); a.textContent = a.dataset.label || 'Ver la carta'; } else { setUrl(a, wa('carta')); a.textContent = a.dataset.alt || 'Consultar la carta por WhatsApp'; } });
+
+  }
 
   /* Header y menú móvil */
   const header = $('#site-header'), burger = $('#burger'), nav = $('#nav');
@@ -20,7 +22,9 @@
     document.body.style.overflow = open ? 'hidden' : ''; if (focus) burger.focus();
   };
   burger?.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-  nav?.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  nav?.addEventListener('click', e => { if (e.target.closest('a') || e.target === nav) setMenu(false); });
+  document.addEventListener('click', e => { if (nav.classList.contains('open') && !e.target.closest('#nav, #burger')) setMenu(false); });
+  matchMedia('(min-width: 861px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) setMenu(false, true); });
 
   /* Progreso de lectura: respaldo para navegadores sin scroll-driven animations */
@@ -50,7 +54,8 @@
       $$('[data-status]').forEach(e => { e.textContent = txt; e.classList.toggle('closed', closed); });
     } catch {}
   };
-  status(); document.addEventListener('visibilitychange', () => { if (!document.hidden) status(); });
+  if (S && S.schedule) status();
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && S && S.schedule) status(); });
 
   /* Galería ampliada */
   const figs = $$('#gallery figure');
@@ -63,7 +68,7 @@
     let i = 0;
     const show = k => { i = (k + figs.length) % figs.length; const s = $('img', figs[i]); im.src = s.currentSrc || s.src; im.alt = s.alt; cap.textContent = s.alt; im.style.animation = 'none'; im.offsetWidth; im.style.animation = ''; };
     const open = k => { show(k); dl.showModal(); };
-    figs.forEach((f, k) => { f.tabIndex = 0; f.setAttribute('role', 'button'); f.setAttribute('aria-label', 'Ampliar foto: ' + $('img', f).alt); f.addEventListener('click', () => open(k)); f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(k); } }); });
+    figs.forEach((f, k) => { const s = $('img', f), b = document.createElement('button'); b.type = 'button'; b.className = 'zoom'; b.setAttribute('aria-label', 'Ampliar foto: ' + s.alt); s.replaceWith(b); b.append(s); b.addEventListener('click', () => open(k)); });
     dl.addEventListener('click', e => { if (e.target === dl || e.target === wrap || e.target.closest('.x')) dl.close(); else if (e.target.closest('.p')) show(i - 1); else if (e.target.closest('.n')) show(i + 1); });
     dl.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1); });
   }
