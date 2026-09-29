@@ -111,3 +111,39 @@ footer{--img:url(assets/sala1.webp);--a:.92;background:var(--ink)}
 .under-link{color:var(--white)}
 .opening-aside,.opening-aside span{color:var(--glow)}
 .visit-intro h2{max-width:11ch}.mesa-head h2{max-width:10ch}.contact h2{max-width:9ch}
+
+/* ===== v4: UNA sola tipografía por sección (todo el texto), sin cursivas; fondos fotográficos visibles ===== */
+:root{--F-play:Playfair,Georgia,serif;--F-bri:Bricolage,Inter,Arial,sans-serif;--F-sho:Shoulders,Impact,'Arial Narrow',sans-serif}
+#site-header,#site-header *,.hero,.hero *,footer,footer *,.quick-actions,.quick-actions *,.archivo,.archivo *{font-family:var(--F-play)!important}
+.opening,.opening *,.pena,.pena *,.visit,.visit *,.band,.band *{font-family:var(--F-bri)!important}
+.mesa,.mesa *,.interlude,.interlude *,.contact,.contact *{font-family:var(--F-sho)!important}
+h1,h2,h3,p,em,i,span,li,dt,dd,a,small,figcaption,button,.brand,.brand *{font-style:normal!important}
+.status:before{font-family:inherit}
+/* Titulares: un solo estilo cada uno */
+.hero h1{font-weight:600;letter-spacing:-.04em;line-height:.95}
+.opening h2,.visit h2,.pena h2{font-weight:800;letter-spacing:-.055em;text-transform:none;line-height:.94}
+.pena h2{font-size:clamp(4rem,10.5vw,11rem);max-width:9ch}
+.archivo h2{font-weight:500;letter-spacing:-.045em;line-height:1}
+.mesa h2,.contact h2{font-weight:800;text-transform:uppercase;letter-spacing:.005em;line-height:.9;font-size:clamp(5rem,13vw,13.5rem);max-width:9ch}
+.mesa p,.contact p,.mesa li,.contact a,.mesa a{letter-spacing:.02em;font-weight:500}
+.mesa-head>p,.contact-copy>p{font-size:1.25rem}
+.dish-copy li{font-size:clamp(2.6rem,5vw,4.6rem);text-transform:uppercase;line-height:1}
+.visit-card dt{font-weight:700}
+.band span{font-weight:600}
+/* Fondos: fotos a la vista, como el hero (oscurece solo del lado del texto) */
+.opening:before,.mesa:before,.interlude:before,.archivo:before,.visit:before,.contact:before,footer:before{filter:none;background:linear-gradient(90deg,rgba(12,20,18,.82) 0%,rgba(12,20,18,.5) 45%,rgba(12,20,18,.12) 100%),linear-gradient(0deg,rgba(12,20,18,.55) 0,transparent 35%),var(--img) center/cover no-repeat}
+.opening{--img:url(assets/baile.webp)}
+.mesa{--img:url(assets/hero-parrilla.webp)}
+.interlude{--img:url(assets/sala1.webp)}
+.archivo{--img:url(assets/plato1.webp)}
+.visit{--img:url(assets/sala2.webp)}
+.contact{--img:url(assets/hero-parrilla.webp)}
+footer{--img:url(assets/baile.webp)}
+.interlude:before{background:linear-gradient(0deg,rgba(12,20,18,.45),rgba(12,20,18,.25)),var(--img) center/cover no-repeat}
+.archivo:before{background:linear-gradient(180deg,rgba(12,20,18,.78),rgba(12,20,18,.45) 40%,rgba(12,20,18,.78)),var(--img) center 60%/cover no-repeat}
+footer:before{background:linear-gradient(0deg,rgba(12,20,18,.88),rgba(12,20,18,.6)),var(--img) center/cover no-repeat}
+@media(min-width:821px) and (hover:hover){.opening:before,.mesa:before,.interlude:before,.archivo:before,.visit:before,.contact:before{background-attachment:scroll,scroll,fixed}.interlude:before,.archivo:before{background-attachment:scroll,fixed}}
+.opening-copy h2,.opening-copy p,.mesa h2,.visit h2,.contact h2,.mesa-head>p,.visit-intro>p,.contact-copy>p,.interlude p{text-shadow:0 2px 24px rgba(0,0,0,.7),0 0 2px rgba(0,0,0,.4)}
+.visit-card,.opening-note{background:rgba(12,20,18,.6);backdrop-filter:blur(10px);padding:1.4rem 1.5rem;border-radius:2px}
+.visit-card{border-top-width:2px}
+.dish-copy{text-shadow:0 2px 20px rgba(0,0,0,.8)}
