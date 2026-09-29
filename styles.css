@@ -199,3 +199,31 @@ html{scroll-padding-bottom:6rem}
 .quick-actions .btn{flex:1;min-height:44px;padding:.4rem 1rem;font-size:.9rem;color:var(--hueso);border-color:rgba(240,232,216,.35)}.quick-actions .btn-fire{color:var(--tinta);border-color:var(--brasa)}
 }
 @media (max-width:860px) and (orientation:landscape){.hero{--fs:min(25.4vw,30vh)}.hero-photo{min-height:38svh}}
+/* ---------- Cierre: amanecer (visita) · contacto · pie — paleta cálida, centrado ---------- */
+.visita{background:var(--hueso);color:var(--tinta);--focus:var(--tinta)}
+.visita-clock{background:linear-gradient(180deg,var(--vino),var(--hueso) 8rem);padding:clamp(7rem,12vw,10rem) var(--pad) 0;text-align:center}
+.visita-sticky{max-width:64rem;margin:auto}
+.reloj-lead{font:italic 340 clamp(1.2rem,2vw,1.8rem)/1.1 var(--serif);color:var(--muted)}
+.reloj{font-size:clamp(4.5rem,11vw,9.5rem);margin:.12em auto 0;color:var(--tinta);text-align:center}
+.reloj .sep{color:var(--brasa)}
+.visita-info{display:block;max-width:64rem;text-align:center;padding:clamp(2.5rem,5vw,4rem) var(--pad) clamp(4.5rem,8vw,7rem)}
+.visita-main h2{font-size:clamp(2.4rem,4.6vw,4.6rem);max-width:none}
+.visita-main p{margin:1.2rem auto 0;color:var(--muted)}
+.visita-main .status{justify-content:center;margin-top:1.4rem}
+.visita-data{margin-top:clamp(2rem,4vw,3rem)}
+.hours{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);border:0}
+.hours div{display:block;padding:1.1rem 0 0;border:0;border-top:1px solid var(--tinta);text-align:center}
+.hours div:nth-child(2){border-top:3px solid var(--brasa)}
+.hours dt{font:italic 340 1.3rem/1.2 var(--serif)}
+.hours dd{text-align:center;margin-top:.5rem;font-weight:500}
+.address{margin-top:2rem}
+.contact{background:var(--vino);color:var(--hueso);max-width:none;margin:0;overflow:hidden;padding:clamp(4rem,8vw,7rem) max(var(--pad),calc((100% - 78rem)/2))}
+.contact-copy h2{font-size:clamp(2.4rem,4.6vw,4.6rem)}
+.contact-photo{filter:brightness(1.3) saturate(1.1)}
+footer{background:var(--tinta);color:var(--hueso);text-align:center;border-top:1px solid rgba(217,163,67,.35);padding:clamp(3rem,6vw,4.5rem) var(--pad) 6.5rem}
+.footer-main{display:flex;flex-direction:column;align-items:center;gap:1.3rem;max-width:64rem}
+.footer-mark{font-size:clamp(3.4rem,12vw,9.5rem);line-height:.85;color:var(--yema);margin:0;text-align:center}
+.footer-main ul{justify-content:center;gap:0 2rem}
+.footer-hours{justify-self:center;text-align:center}
+.footer-bottom{max-width:64rem;flex-wrap:wrap;justify-content:center;gap:.2rem 2rem;text-align:center;border-top-color:rgba(240,232,216,.18)}
+@media (max-width:860px){.hours{grid-template-columns:1fr}.visita-data{margin-top:2rem}.reloj{font-size:24vw}.contact-copy{text-align:center}.contact-copy p{margin-inline:auto}.contact-actions{justify-content:center}}

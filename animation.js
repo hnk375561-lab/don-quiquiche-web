@@ -58,7 +58,6 @@
         .fromTo('.pena-dim', { opacity: 1 }, { opacity: 0.45, ease: 'none', duration: 0.7 }, 0);
 
       g.from('.visita-main > *, .hours div, .visita-data > *', { y: 34, opacity: 0, stagger: 0.08, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.visita-info', start: 'top 75%', once: true } });
-      g.fromTo('.contact-photo', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top bottom', end: 'bottom bottom', scrub: true } });
       g.from('.footer-mark', { yPercent: 45, opacity: 0, duration: 1.5, ease: 'expo.out', scrollTrigger: { trigger: 'footer', start: 'top 92%', once: true } });
 
       if (matchMedia(fine).matches) $$('.hero .btn, .pena .btn, .contact .btn').forEach(b => {
