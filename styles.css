@@ -1,5 +1,10 @@
+/* Tipografías autoalojadas (SIL OFL, ver assets/fonts/LICENSE-*): sin solicitudes a terceros. Subconjunto latino (cubre español). */
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400 900;font-display:swap;src:url(assets/fonts/playfair-display-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:italic;font-weight:400 900;font-display:swap;src:url(assets/fonts/playfair-display-latin-wght-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Inter;font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/inter-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{--carbon:#17110d;--carbon2:#211812;--crema:#f2e8d5;--arena:#e4d3b3;--brasa:#c2482b;--terra:#a3572f;--oro:#c9a25a;--madera:#5a3b26;--fuego:#ea580c;--fuego-2:#f97316;--abierto:#22c55e;--serif:"Playfair Display","Iowan Old Style","Palatino Linotype",Georgia,serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--r:14px;--pad:clamp(1.25rem,5vw,3rem)}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+@media(max-width:55.99rem){html{scroll-padding-bottom:5.5rem}} /* el foco/ancla no queda tapado por la barra fija inferior (WCAG 2.4.11) */
 body{margin:0;background:var(--carbon);color:var(--crema);font:1.0625rem/1.6 var(--sans);padding-bottom:4.5rem;-webkit-text-size-adjust:100%}
 img{max-width:100%;height:auto;display:block}a{color:inherit}
 :focus-visible{outline:3px solid var(--oro);outline-offset:3px;border-radius:4px}
@@ -9,13 +14,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.05;margin:0;lett
 .wrap{max-width:68rem;margin:auto;padding:0 var(--pad)}section{padding:clamp(3.5rem,9vw,7rem) 0}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.4rem;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid var(--oro);transition:transform .18s,background .18s}
 .btn:active{transform:scale(.97)}.btn-p{background:var(--fuego);border-color:var(--fuego);color:#1a0d05}.btn-p:hover{background:var(--fuego-2);border-color:var(--fuego-2)}.btn-g:hover{background:rgba(201,162,90,.15)}
-header{position:fixed;inset:0 0 auto;z-index:50;transition:background .25s}header.solid{background:rgba(23,17,13,.96);box-shadow:0 1px 0 rgba(201,162,90,.25)}
+header{position:fixed;inset:0 0 auto;z-index:70;transition:background .25s}header.solid{background:rgba(23,17,13,.96);box-shadow:0 1px 0 rgba(201,162,90,.25)}
 .bar{display:flex;align-items:center;justify-content:space-between;height:4rem}
 .logo{font:700 1.25rem var(--serif);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}.logo b{color:var(--oro);font-weight:700}
 #burger{min-width:48px;min-height:48px;background:none;border:0;color:inherit;font-size:1.6rem;cursor:pointer}
-#nav{display:none;position:absolute;top:4rem;left:0;right:0;background:var(--carbon);padding:1rem var(--pad) 1.5rem;border-bottom:1px solid var(--madera)}#nav.open{display:block}
+#nav{display:none;position:absolute;top:4rem;left:0;right:0;max-height:calc(100vh - 4rem);max-height:calc(100dvh - 4rem);overflow-y:auto;overscroll-behavior:contain;background:var(--carbon);padding:1rem var(--pad) 1.5rem;border-bottom:1px solid var(--madera)}#nav.open{display:block}
 #nav a{display:block;padding:.85rem 0;text-decoration:none;font-weight:600;border-bottom:1px solid rgba(255,255,255,.06)}
-@media(min-width:56rem){#burger{display:none}#nav{display:flex!important;position:static;background:none;padding:0;border:0;gap:1.6rem;align-items:center}#nav a{border:0;padding:.4rem 0;font-size:.95rem;display:inline-flex;align-items:center;min-height:44px}#nav a:hover{color:var(--oro)}#nav .btn{padding:.5rem 1.1rem;min-height:44px}}
+@media(min-width:56rem){#burger{display:none}#nav{display:flex!important;position:static;max-height:none;overflow:visible;background:none;padding:0;border:0;gap:1.6rem;align-items:center}#nav a{border:0;padding:.4rem 0;font-size:.95rem;display:inline-flex;align-items:center;min-height:44px}#nav a:hover{color:var(--oro)}#nav .btn{padding:.5rem 1.1rem;min-height:44px}}
 .acts{display:flex;flex-wrap:wrap;gap:.75rem}
 /* claro */
 .paper{background:var(--crema);color:var(--carbon)}.paper .eyebrow{color:#a33a21}
@@ -59,7 +64,7 @@ dl.h.sm{font-size:.9rem}dl.h.sm dt{font-size:1.05rem}
 .embers i:nth-child(10){left:86%;animation-delay:0.0s;animation-duration:9.0s;width:5px;height:5px}
 .embers i:nth-child(11){left:19%;animation-delay:5.6s;animation-duration:10.5s;width:7px;height:7px}
 .embers i:nth-child(12){left:50%;animation-delay:3.2s;animation-duration:6.0s;width:3px;height:3px}
-@keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}12%{opacity:1}100%{transform:translate(34px,-85vh) scale(.2);opacity:0}}
+@keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}12%{opacity:.4}100%{transform:translate(34px,-85vh) scale(.2);opacity:0}} /* .4: una brasa detrás del texto no baja el contraste de 4,5:1 (medido con audit.mjs) */
 .marq{overflow:hidden;background:var(--brasa);color:#fff;border-block:2px solid var(--oro)}
 .marq div{display:flex;width:max-content;animation:mq 32s linear infinite}
 .marq span{font:italic 700 1.35rem var(--serif);padding:.85rem 0 .85rem 1.6rem;white-space:nowrap}.marq span::after{content:"✦";margin-left:1.6rem;opacity:.75}
@@ -91,17 +96,18 @@ dl.h.sm{font-size:.9rem}dl.h.sm dt{font-size:1.05rem}
 #gallery figcaption{padding-top:.4rem}
 
 /* ================= HERO (mobile-first) ================= */
-.hero{position:relative;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+.hero{position:relative;overflow:hidden;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
   padding:6.5rem 0 calc(4.9rem + env(safe-area-inset-bottom)); /* deja libre la barra fija móvil */
   background:radial-gradient(120% 70% at 50% 108%,#e0662f 0,#a8381f 22%,#4a1d10 48%,transparent 72%),var(--carbon)}
+.hero-pic{position:absolute;inset:0;display:block}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 55%}
-.hero-img+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,8,5,.6),rgba(12,8,5,.7) 50%,rgba(12,8,5,.92))} /* overlay ~70% */
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,8,5,.82),rgba(12,8,5,.7) 45%,rgba(12,8,5,.92))} /* overlay ~70-80%: contraste del logo y del texto medido con audit.mjs */
+@media(min-width:56rem){.veil{background:linear-gradient(90deg,rgba(12,8,5,.9),rgba(12,8,5,.76) 45%,rgba(12,8,5,.35)),linear-gradient(180deg,rgba(12,8,5,.6),rgba(12,8,5,.25) 40%,rgba(12,8,5,.9))}}
 .hero-in{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:1rem;padding-bottom:1.6rem}
 .badge{margin:0;padding:.45rem .9rem;border:1px solid rgba(201,162,90,.55);border-radius:999px;background:rgba(12,8,5,.55);color:var(--crema);font:600 .85rem/1.2 var(--sans);letter-spacing:.02em}
-.open{margin:0;display:inline-flex;align-items:center;gap:.5rem;font:700 .85rem/1 var(--sans);color:var(--abierto)}
-.open[hidden]{display:none}
-.open .dot{width:.6rem;height:.6rem;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:pulse 2s infinite}
-.open.is-closed{color:var(--arena)}.open.is-closed .dot{animation:none;opacity:.6}
+.status{margin:0;display:inline-flex;align-items:center;gap:.5rem;font:700 .85rem/1 var(--sans);color:var(--abierto)}
+.status .dot{width:.6rem;height:.6rem;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 currentColor;animation:pulse 2s infinite}
+.status.is-closed{color:var(--crema)}.status.is-closed .dot{animation:none;opacity:.6}
 @keyframes pulse{70%{box-shadow:0 0 0 .5rem transparent}100%{box-shadow:0 0 0 0 transparent}}
 .hero h1{font-size:clamp(2.9rem,13vw,6.6rem);font-weight:900;line-height:1;letter-spacing:-.02em;text-shadow:0 3px 30px rgba(0,0,0,.6)}
 .sub{max-width:34rem;margin:0;font-size:clamp(1.05rem,4.2vw,1.35rem);line-height:1.5;color:#f7ecd8;text-shadow:0 1px 14px rgba(0,0,0,.7)}
@@ -117,3 +123,9 @@ dl.h.sm{font-size:.9rem}dl.h.sm dt{font-size:1.05rem}
   .hero{padding-bottom:0}.hero-in{padding-bottom:3.5rem}
   .trust{display:flex;justify-content:center;gap:3rem;font-size:.95rem}.trust li{flex-direction:row;gap:.6rem}.trust span{font-size:1.25rem}
 }
+
+/* ---- Animaciones: se pausan fuera de pantalla (main.js) y el usuario puede detenerlas (WCAG 2.2.2) ---- */
+.off,.off *,.off *::before,.off *::after{animation-play-state:paused!important}
+html.calm *,html.calm *::before,html.calm *::after{animation:none!important;transition:none!important}
+.lnk{background:none;border:0;padding:0;margin-top:.5rem;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:.2em;cursor:pointer;min-height:44px}
+.lnk:hover{color:var(--oro)}

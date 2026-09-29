@@ -3,7 +3,6 @@
   const el = (tag, attrs = {}, text) => { const n = document.createElement(tag); Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v)); if (text != null) n.textContent = text; return n; };
   const REL = 'noopener noreferrer';
   const isHttps = u => { try { return new URL(u).protocol === 'https:'; } catch { return false; } };
-  const isAsset = p => typeof p === 'string' && /^assets\/[\w\-./]+$/.test(p) && !p.split('/').some(x => !x || x === '.' || x === '..');
   // Solo https: (nunca javascript:, data:, http:). Devuelve false si no se pudo aplicar.
   const ext = (a, url) => { if (!isHttps(url)) return false; a.href = url; a.target = '_blank'; a.rel = REL; return true; };
   const wa = k => `https://wa.me/${S.whatsapp}?text=${encodeURIComponent(S.waMessages[k] || S.waMessages.general)}`;
@@ -40,20 +39,8 @@
     if (items.length) { $('#events').replaceChildren(...items); $('#events').hidden = false; $('#no-events').hidden = true; }
   });
 
-  // Galería y hero: solo material autorizado y con ruta local válida
-  step('galería', () => {
-    const g = S.gallery.filter(i => i && i.status === 'authorized' && isAsset(i.src));
-    const figs = nodes(g, i => { const f = el('figure'); const im = el('img', { src: i.src, width: i.w, height: i.h, alt: i.alt, decoding: 'async' }); if (i !== g[0]) im.loading = 'lazy'; f.append(im); const cap = [i.caption, i.credit && 'Foto: ' + i.credit].filter(Boolean).join(' · '); if (cap) f.append(el('figcaption', {}, cap)); return f; });
-    if (!figs.length) return;
-    $('#galeria').hidden = false; $$('[href="#galeria"]').forEach(a => a.hidden = false); $('#gallery').replaceChildren(...figs);
-  });
-  step('hero', () => {
-    const hi = S.hero && S.hero.image;
-    if (!(hi && hi.status === 'authorized' && isAsset(hi.src))) return;
-    const hero = $('.hero'); hero.prepend(el('div', { class: 'veil' })); hero.prepend(el('img', { class: 'hero-img', src: hi.src, width: hi.w, height: hi.h, alt: hi.alt || '', fetchpriority: 'high', decoding: 'async' }));
-  });
   // Estado "Abierto ahora": hora de Argentina (no la del dispositivo). Se oculta si no hay `schedule`.
-  step('estado', () => {
+  const updateOpen = () => {
     const box = $('#open-status'); if (!box || !S.schedule) return;
     const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Argentina/Buenos_Aires', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date()).map(x => [x.type, x.value]));
     const day = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday)];
@@ -62,19 +49,33 @@
     const open = spans.some(([a, b]) => now >= a && now < b), next = spans.find(([a]) => a > now);
     $('#open-text').textContent = open ? 'Abierto ahora' : next ? 'Cerrado ahora · abre hoy a las ' + next[2] : 'Cerrado ahora';
     box.classList.toggle('is-closed', !open); box.hidden = false;
-  });
+  };
+  step('estado', updateOpen);
+  // La página puede quedar abierta horas en segundo plano: al volver, se recalcula
+  document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && step('estado', updateOpen));
   step('año', () => { $('#year').textContent = new Date().getFullYear(); });
 
   try {
   // Menú móvil accesible: Escape (devuelve foco), click fuera, cierre al elegir, aria dinámico
   const btn = $('#burger'), nav = $('#nav'), hd = $('header');
-  const set = (o, focus) => { nav.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); btn.setAttribute('aria-label', o ? 'Cerrar menú' : 'Abrir menú'); if (!o && focus) btn.focus(); };
+  const set = (o, focus) => { nav.classList.toggle('open', o); btn.setAttribute('aria-expanded', String(o)); if (!o && focus) btn.focus(); };
   btn.addEventListener('click', () => set(!nav.classList.contains('open')));
   nav.addEventListener('click', e => e.target.closest('a') && set(false));
   document.addEventListener('click', e => nav.classList.contains('open') && !hd.contains(e.target) && set(false));
   addEventListener('keydown', e => e.key === 'Escape' && nav.classList.contains('open') && set(false, true));
+  const wide = matchMedia('(min-width: 56rem)'), onWide = e => e.matches && set(false); // al pasar a escritorio no queda un estado "abierto" oculto
+  wide.addEventListener ? wide.addEventListener('change', onWide) : wide.addListener(onWide); // Safari < 14 solo tiene addListener
   const onS = () => hd.classList.toggle('solid', scrollY > 40); onS(); addEventListener('scroll', onS, { passive: true });
-  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !calm) {
+    // Animaciones infinitas (brasas, cinta, haces, ecualizador): solo corren mientras su bloque está en pantalla
+    const pv = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('off', !e.isIntersecting)), { rootMargin: '80px' });
+    $$('.hero, .marq, #pena').forEach(e => pv.observe(e));
+  }
+  // Control del usuario para detener el movimiento (WCAG 2.2.2). Con "reducir movimiento" ya está detenido y no hace falta.
+  const mo = $('#motion');
+  if (mo && !calm) { mo.hidden = false; mo.addEventListener('click', () => { const on = !document.documentElement.classList.toggle('calm'); mo.setAttribute('aria-pressed', String(!on)); mo.textContent = on ? 'Pausar animaciones' : 'Reanudar animaciones'; }); }
+  if ('IntersectionObserver' in window && !calm) {
     const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold: .12 });
     $$('.rv').forEach(e => { e.classList.add('rv-on'); io.observe(e); });
   }

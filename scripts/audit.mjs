@@ -1,5 +1,5 @@
 // Auditoría en navegador real (Chromium): responsive, WCAG 2.2 AA con axe-core, contraste medido por píxeles y teclado.
-// Opcional: NO forma parte del sitio ni de `npm run check`. Requiere: npm i -D playwright axe-core && npx playwright install chromium
+// Opcional: NO forma parte del sitio ni de `npm run check`. Requiere: npm i -D playwright axe-core && npx playwright install chromium. bypassCSP solo sirve para inyectar axe; la CSP se prueba sin bypass en scripts/e2e.mjs.
 import fs from 'node:fs'; import http from 'node:http'; import path from 'node:path'; import { createRequire } from 'node:module';
 const req = createRequire(import.meta.url);
 let chromium, axeSrc;
@@ -15,7 +15,7 @@ const fails = [], warns = [], info = [];
 const browser = await chromium.launch();
 const reveal = p => p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 400) { scrollTo(0, y); await new Promise(r => setTimeout(r, 40)); } scrollTo(0, 0); }).then(() => p.waitForTimeout(500));
 const settle = p => p.evaluate(() => new Promise(res => { let last = -1, n = 0; const f = () => { n = scrollY === last ? n + 1 : 0; last = scrollY; n >= 4 ? res() : requestAnimationFrame(f); }; f(); }));
-const newPage = async (w, h, o = {}) => { const c = await browser.newContext({ viewport: { width: w, height: h }, ...o }); const p = await c.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(e.message)); p.on('console', m => ['error', 'warning'].includes(m.type()) && p.__errs.push(m.text())); await p.goto(URL_); return p; };
+const newPage = async (w, h, o = {}) => { const c = await browser.newContext({ viewport: { width: w, height: h }, bypassCSP: true, ...o }); const p = await c.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(e.message)); p.on('console', m => ['error', 'warning'].includes(m.type()) && p.__errs.push(m.text())); await p.goto(URL_); return p; };
 
 // Contraste real: oculta texto/bordes/pseudo-elementos, captura el fondo SOLO bajo el rectángulo del texto y calcula el peor par contra su color
 const measure = async (p, sel) => {

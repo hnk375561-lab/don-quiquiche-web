@@ -2,7 +2,7 @@
 // Lo usan build.mjs (escribe) y check.mjs (verifica que index.html ya está sincronizado).
 export const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const REL = 'noopener noreferrer';
-export const MARKERS = ['SEO', 'LD', 'STATIC_LINK', 'STATIC_HOURS', 'STATIC_ADDRESS', 'STATIC_CATEGORIES', 'STATIC_YEAR', 'STATIC_PRACTICAL', 'STATIC_PRACTICAL_NAV'];
+export const MARKERS = ['SEO', 'LD', 'STATIC_LINK', 'STATIC_HOURS', 'STATIC_ADDRESS', 'STATIC_CATEGORIES', 'STATIC_YEAR', 'STATIC_PRACTICAL', 'STATIC_PRACTICAL_NAV', 'STATIC_HERO', 'STATIC_GALLERY', 'STATIC_GALLERY_NAV'];
 
 /** Reemplaza el contenido de cada par de markers `name`. fn(params) recibe los atributos key="value" del marker de apertura. */
 function fillAll(html, name, fn, { required = true } = {}) {
@@ -26,7 +26,6 @@ export function render(html, S, { year = new Date().getFullYear(), partial = fal
   // --- SEO (title, description, og:*, twitter:*, canonical) ---
   const hasImg = !!(S.siteUrl && S.ogImage), img = hasImg ? `${S.siteUrl}/${S.ogImage}` : null;
   const seo = [
-    S.hero.image && S.hero.image.status === 'authorized' ? `<link rel="preload" as="image" href="${esc(S.hero.image.src)}" fetchpriority="high">` : null,
     `<title>${esc(S.title)}</title>`,
     `<meta name="description" content="${esc(S.description)}">`,
     `<meta property="og:type" content="${esc(S.ogType)}"><meta property="og:locale" content="${esc(S.locale)}">`,
@@ -65,6 +64,20 @@ export function render(html, S, { year = new Date().getFullYear(), partial = fal
   const prac = (S.practical || []).filter(x => x && x.status === 'confirmed-by-business');
   const practicalSection = prac.length ? `<section id="antes"><div class="wrap split"><div class="rv"><p class="eyebrow">Antes de venir</p><h2>Datos útiles</h2></div><dl class="h rv">${prac.map(x => `<div><dt>${esc(x.label)}</dt><dd>${esc(x.text)}</dd></div>`).join('')}</dl></div></section>` : '';
 
+  // --- Hero y galería: HTML estático (funciona sin JS y el navegador descubre la imagen del LCP sin esperar scripts). Solo material autorizado ---
+  const ok = i => i && i.status === 'authorized';
+  const hi = S.hero.image;
+  const heroHtml = ok(hi)
+    ? `<picture class="hero-pic">${hi.portrait ? `<source media="(orientation: portrait)" srcset="${esc(hi.portrait.src)}" width="${hi.portrait.w}" height="${hi.portrait.h}" type="image/webp">` : ''}<img class="hero-img" src="${esc(hi.src)}" width="${hi.w}" height="${hi.h}" alt="${esc(hi.alt || '')}" fetchpriority="high" decoding="async"></picture><div class="veil"></div>`
+    : '';
+  const gal = (S.gallery || []).filter(ok);
+  const galleryHtml = gal.length
+    ? `<section id="galeria"><div class="wrap"><h2 class="h2b">Fotos</h2><div id="gallery">${gal.map(i => {
+        const cap = [i.caption, i.credit && 'Foto: ' + i.credit].filter(Boolean).join(' · ');
+        return `<figure><img src="${esc(i.src)}" width="${i.w}" height="${i.h}" alt="${esc(i.alt)}" loading="lazy" decoding="async">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`;
+      }).join('')}</div></div></section>`
+    : '';
+
   let h = html;
   h = fill(h, 'SEO', () => `\n${seo}\n`);
   h = fill(h, 'LD', () => `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>`);
@@ -74,6 +87,9 @@ export function render(html, S, { year = new Date().getFullYear(), partial = fal
   h = fill(h, 'STATIC_CATEGORIES', () => S.categories.map(c => `<li>${esc(c)}</li>`).join(''));
   h = fill(h, 'STATIC_YEAR', () => String(year));
   h = fill(h, 'STATIC_PRACTICAL', () => practicalSection);
+  h = fill(h, 'STATIC_HERO', () => heroHtml);
+  h = fill(h, 'STATIC_GALLERY', () => galleryHtml);
+  h = fill(h, 'STATIC_GALLERY_NAV', () => gal.length ? '<a href="#galeria">Fotos</a>' : '');
   h = fill(h, 'STATIC_PRACTICAL_NAV', () => prac.length ? '<a href="#antes">Antes de venir</a>' : '');
   return h.replace(/<html lang="[^"]*">/, `<html lang="${S.locale.replace('_', '-')}">`);
 }

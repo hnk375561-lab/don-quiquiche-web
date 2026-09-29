@@ -2,7 +2,7 @@
 window.SITE = {
   siteUrl: null, // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
   ogImage: "assets/og.jpg", // 1200x630, recorte de la foto de la parrilla. Se emite en el HTML cuando exista siteUrl // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
-  hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
+  hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, portrait:{src:"assets/hero-parrilla-m.webp", w:800, h:738}, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
   // SEO / redes: el build genera <title>, description, og:* y twitter:* desde acá (no editar index.html a mano)
   title: "Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay",
   description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios y cómo llegar.",

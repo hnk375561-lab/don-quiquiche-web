@@ -135,7 +135,13 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
     if (i.status === 'authorized' && !i.authorizedBy) warnings.push(`${p}: authorized sin authorizedBy (registrar quién autorizó)`);
   };
   if (Array.isArray(S.gallery)) S.gallery.forEach((g, n) => image(`gallery[${n}]`, g, { altRequired: true })); else bad('gallery', 'required array');
-  if (isObj(S.hero)) { if (S.hero.image !== null && S.hero.image !== undefined) image('hero.image', S.hero.image, { altRequired: false }); } else bad('hero', 'required object {image}');
+  if (isObj(S.hero)) {
+    if (S.hero.image !== null && S.hero.image !== undefined) {
+      image('hero.image', S.hero.image, { altRequired: false });
+      const pt = isObj(S.hero.image) ? S.hero.image.portrait : undefined; // opcional: recorte vertical {src,w,h} para pantallas en orientación vertical
+      if (pt !== undefined) { if (!isObj(pt)) bad('hero.image.portrait', 'objeto {src,w,h}'); else { asset('hero.image.portrait.src', pt.src); ['w', 'h'].forEach(k => { if (!(Number.isInteger(pt[k]) && pt[k] > 0)) bad(`hero.image.portrait.${k}`, 'positive integer'); }); } }
+    }
+  } else bad('hero', 'required object {image}');
 
   // "Antes de venir": solo se publica lo confirmado por el negocio
   if (S.practical !== undefined) {

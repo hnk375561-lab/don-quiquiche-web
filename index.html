@@ -2,12 +2,14 @@
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#17110d">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <!--BUILD:SEO-->
-<link rel="preload" as="image" href="assets/hero-parrilla.webp" fetchpriority="high">
 <title>Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay</title>
 <meta name="description" content="Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios y cómo llegar.">
 <meta property="og:type" content="website"><meta property="og:locale" content="es_AR">
@@ -19,27 +21,28 @@
 <!-- PENDIENTE: definir siteUrl en data/site.js y correr node scripts/build.mjs -->
 <!--/BUILD:SEO-->
 <!--BUILD:LD--><script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Parrilla Don Quiquiche","alternateName":"Parrilla Don Quiquiche, Ambiente Familiar, Peña","telephone":"+543442581870","address":{"@type":"PostalAddress","streetAddress":"Ruta Provincial 39","addressLocality":"Concepción del Uruguay","addressRegion":"Entre Ríos","addressCountry":"AR"},"sameAs":["https://www.instagram.com/parrilla.donquiquiche/"],"hasMap":"https://www.google.com/maps/search/?api=1&query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay"}</script><!--/BUILD:LD-->
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;600;700&display=swap">
+<link rel="preload" href="assets/fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
 <header><div class="wrap bar">
   <a class="logo" href="#top" aria-label="Parrilla Don Quiquiche, inicio">Don <b>Quiquiche</b></a>
-  <button id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  <button id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menú"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
   <nav id="nav" aria-label="Principal">
-    <a href="#lugar">El lugar</a><a href="#carta">La propuesta</a><a href="#pena">Peña</a><a href="#galeria" hidden>Fotos</a><a href="#horarios">Horarios</a><!--BUILD:STATIC_PRACTICAL_NAV--><!--/BUILD:STATIC_PRACTICAL_NAV--><a href="#llegar">Cómo llegar</a>
+    <a href="#lugar">El lugar</a><a href="#carta">La propuesta</a><a href="#pena">Peña</a><!--BUILD:STATIC_GALLERY_NAV--><a href="#galeria">Fotos</a><!--/BUILD:STATIC_GALLERY_NAV--><a href="#horarios">Horarios</a><!--BUILD:STATIC_PRACTICAL_NAV--><!--/BUILD:STATIC_PRACTICAL_NAV--><a href="#llegar">Cómo llegar</a>
     <!--BUILD:STATIC_LINK kind="wa" val="reserva" class="btn btn-p" label="Reservar"--><a class="btn btn-p" data-wa="reserva" href="https://wa.me/5493442581870?text=Hola%2C%20quer%C3%ADa%20reservar%20una%20mesa%20en%20Parrilla%20Don%20Quiquiche." target="_blank" rel="noopener noreferrer">Reservar</a><!--/BUILD:STATIC_LINK-->
   </nav>
 </div></header>
 <main id="main">
-<!-- HERO: foto real (la inyecta main.js desde hero.image) + overlay oscuro; texto y CTAs sobre contraste alto -->
+<!-- HERO: foto real (HTML estático generado desde hero.image) + overlay oscuro; texto y CTAs sobre contraste alto -->
 <section class="hero" id="top" aria-labelledby="hero-title">
+  <!--BUILD:STATIC_HERO--><picture class="hero-pic"><source media="(orientation: portrait)" srcset="assets/hero-parrilla-m.webp" width="800" height="738" type="image/webp"><img class="hero-img" src="assets/hero-parrilla.webp" width="1600" height="738" alt="Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña" fetchpriority="high" decoding="async"></picture><div class="veil"></div><!--/BUILD:STATIC_HERO-->
   <div class="embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="wrap hero-in">
     <p class="badge"><span aria-hidden="true">📍</span> Ruta 39 • Concepción del Uruguay</p>
-    <p class="open" id="open-status" hidden><span class="dot" aria-hidden="true"></span><span id="open-text"></span></p>
+    <p class="status" id="open-status" hidden><span class="dot" aria-hidden="true"></span><span id="open-text"></span></p>
     <h1 id="hero-title">Parrilla Don Quiquiche</h1>
     <p class="sub">Fuego a la brasa, carnes a la parrilla y ambiente de peña familiar.</p>
     <div class="acts"><!--BUILD:STATIC_LINK kind="wa" val="reserva" class="btn btn-p btn-xl" label="Reservar mesa por WhatsApp"--><a class="btn btn-p btn-xl" data-wa="reserva" href="https://wa.me/5493442581870?text=Hola%2C%20quer%C3%ADa%20reservar%20una%20mesa%20en%20Parrilla%20Don%20Quiquiche." target="_blank" rel="noopener noreferrer">Reservar mesa por WhatsApp</a><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="menu" class="btn btn-o btn-xl" label="Ver carta y menú" alt="Consultar la carta por WhatsApp"--><a class="btn btn-o btn-xl" data-menu data-label="Ver carta y menú" data-alt="Consultar la carta por WhatsApp" aria-label="Consultar la carta por WhatsApp" href="https://wa.me/5493442581870?text=Hola%2C%20%C2%BFme%20pasan%20la%20carta%20actual%20de%20Parrilla%20Don%20Quiquiche%3F" target="_blank" rel="noopener noreferrer">Consultar la carta por WhatsApp</a><!--/BUILD:STATIC_LINK--></div>
@@ -71,7 +74,7 @@
   <div class="acts mt"><!--BUILD:STATIC_LINK kind="ig" class="btn btn-g" label="Instagram"--><a class="btn btn-g" data-ig href="https://www.instagram.com/parrilla.donquiquiche/" target="_blank" rel="noopener noreferrer">Instagram</a><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="wa" val="eventos" class="btn btn-g" label="Consultar por fechas"--><a class="btn btn-g" data-wa="eventos" href="https://wa.me/5493442581870?text=Hola%2C%20quer%C3%ADa%20consultar%20por%20las%20pr%C3%B3ximas%20fechas%20de%20m%C3%BAsica%20en%20Parrilla%20Don%20Quiquiche." target="_blank" rel="noopener noreferrer">Consultar por fechas</a><!--/BUILD:STATIC_LINK--></div>
 </div></section>
 
-<section id="galeria" hidden><div class="wrap"><h2 class="h2b">Fotos</h2><div id="gallery"></div></div></section>
+<!--BUILD:STATIC_GALLERY--><section id="galeria"><div class="wrap"><h2 class="h2b">Fotos</h2><div id="gallery"><figure><img src="assets/sala1.webp" width="1200" height="554" alt="Salón de Parrilla Don Quiquiche con las mesas ocupadas y un grupo musical tocando en vivo bajo el cartel del local" loading="lazy" decoding="async"><figcaption>Foto: Parrilla Don Quiquiche</figcaption></figure><figure><img src="assets/baile.webp" width="1200" height="675" alt="Noche de baile en el salón, con luces de colores y gente bailando frente al escenario" loading="lazy" decoding="async"><figcaption>Foto: Parrilla Don Quiquiche</figcaption></figure><figure><img src="assets/plato1.webp" width="900" height="1200" alt="Plato de carne gratinada con queso, tomate y orégano, con papas fritas" loading="lazy" decoding="async"><figcaption>Foto: Parrilla Don Quiquiche</figcaption></figure><figure><img src="assets/plato2.webp" width="900" height="1200" alt="Dos platos de carne rebozada con queso, salsa, huevo frito y papas fritas" loading="lazy" decoding="async"><figcaption>Foto: Parrilla Don Quiquiche</figcaption></figure><figure><img src="assets/sala2.webp" width="1200" height="554" alt="Salón lleno durante una actuación en vivo, con el escenario al fondo" loading="lazy" decoding="async"><figcaption>Foto: Parrilla Don Quiquiche</figcaption></figure></div></div></section><!--/BUILD:STATIC_GALLERY-->
 
 <section class="paper" id="horarios"><div class="wrap split">
   <div class="rv"><p class="eyebrow">Horarios</p><h2>Cuándo ir</h2><p class="note mt">Los horarios pueden variar en fechas especiales. Confirmá por WhatsApp o teléfono antes de venir.</p></div>
@@ -90,7 +93,7 @@
   <div><h3>Don Quiquiche</h3><p><span data-address><!--BUILD:STATIC_ADDRESS-->Ruta Provincial 39, Concepción del Uruguay, Entre Ríos<!--/BUILD:STATIC_ADDRESS--></span></p></div>
   <div><h3>Contacto</h3><ul><!--BUILD:STATIC_LINK kind="tel" wrap="li"--><li><a data-tel href="tel:+543442581870">03442 58-1870</a></li><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="wa" val="general" label="WhatsApp" wrap="li"--><li><a data-wa="general" href="https://wa.me/5493442581870?text=Hola%2C%20quer%C3%ADa%20hacer%20una%20consulta%20sobre%20Parrilla%20Don%20Quiquiche." target="_blank" rel="noopener noreferrer">WhatsApp</a></li><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="ig" label="Instagram" wrap="li"--><li><a data-ig href="https://www.instagram.com/parrilla.donquiquiche/" target="_blank" rel="noopener noreferrer">Instagram</a></li><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="fb" label="Facebook" wrap="li"--><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="map" label="Google Maps" wrap="li"--><li><a data-map href="https://www.google.com/maps/search/?api=1&amp;query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay" target="_blank" rel="noopener noreferrer">Google Maps</a></li><!--/BUILD:STATIC_LINK--></ul></div>
   <div><h3>Horarios</h3><dl class="h sm" data-hours><!--BUILD:STATIC_HOURS--><div><dt>Lunes a viernes</dt><dd>11:00–15:00 · 20:00–00:00</dd></div><div><dt>Sábado</dt><dd>11:00–04:00</dd></div><div><dt>Domingo</dt><dd>11:00–15:00</dd></div><!--/BUILD:STATIC_HOURS--></dl><p class="note">Sujetos a cambios en fechas especiales.</p></div>
-</div><div class="wrap"><small>© <span id="year"><!--BUILD:STATIC_YEAR-->2026<!--/BUILD:STATIC_YEAR--></span> Parrilla Don Quiquiche</small></div></footer>
+</div><div class="wrap"><small>© <span id="year"><!--BUILD:STATIC_YEAR-->2026<!--/BUILD:STATIC_YEAR--></span> Parrilla Don Quiquiche</small><div><button type="button" id="motion" class="lnk" aria-pressed="false" hidden>Pausar animaciones</button></div></div></footer>
 <nav class="sticky" aria-label="Acciones rápidas"><!--BUILD:STATIC_LINK kind="wa" val="reserva" class="btn btn-p" label="Reservar"--><a class="btn btn-p" data-wa="reserva" href="https://wa.me/5493442581870?text=Hola%2C%20quer%C3%ADa%20reservar%20una%20mesa%20en%20Parrilla%20Don%20Quiquiche." target="_blank" rel="noopener noreferrer">Reservar</a><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="tel" class="btn btn-g" label="Llamar"--><a class="btn btn-g" data-tel href="tel:+543442581870">Llamar</a><!--/BUILD:STATIC_LINK--><!--BUILD:STATIC_LINK kind="map" class="btn btn-g" label="Llegar"--><a class="btn btn-g" data-map href="https://www.google.com/maps/search/?api=1&amp;query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay" target="_blank" rel="noopener noreferrer">Llegar</a><!--/BUILD:STATIC_LINK--></nav>
 <script src="data/site.js" defer></script><script src="main.js" defer></script>
 </body></html>

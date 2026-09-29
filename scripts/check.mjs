@@ -42,6 +42,23 @@ const idList = [...html.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]), ids = new S
 no((html.match(/<h1[\s>]/g) || []).length !== 1, 'debe haber un único H1');
 no(![...html.matchAll(/<a[^>]*data-(wa|map|ig|tel|menu)[^>]*>/g)].every(m => /href="[^"]+"/.test(m[0])), 'enlace crítico sin href estático');
 
+// 1b. Recursos: srcset/CSS/fuentes existen; nada de terceros que no sean enlaces de salida; CSP y meta robots presentes
+[...html.matchAll(/\ssrcset="([^"]+)"/g)].forEach(m => m[1].split(',').map(x => x.trim().split(/\s+/)[0]).forEach(u => no(!fs.existsSync(u), 'srcset apunta a archivo inexistente: ' + u)));
+{
+  const css = r('styles.css');
+  [...css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)].forEach(m => { no(/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1]) && !m[1].startsWith('data:'), 'styles.css carga un recurso externo: ' + m[1]); no(!/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(m[1]) && !fs.existsSync(m[1]), 'styles.css: archivo inexistente ' + m[1]); });
+  no(/@import/.test(css), 'styles.css usa @import (bloqueante)');
+  const ext = [...(html.replace(/<a\b[^>]*>/g, '') + '<!-- -->').matchAll(/<(?:link|script|img|source|iframe)\b[^>]*\s(?:src|href|srcset)="(https?:)?\/\/[^"]+"/g)]; no(ext.length, 'index.html carga recursos de terceros (link/script/img): ' + ext.map(x => x[0].slice(0, 70)).join(' | '));
+  const csp = (/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/.exec(html) || [, ''])[1];
+  no(!csp, 'falta la meta Content-Security-Policy'); no(csp && /unsafe-inline|unsafe-eval|\*/.test(csp.replace(/style-src[^;]*;?/, '')), 'CSP demasiado permisiva'); no(csp && !/default-src 'none'/.test(csp) || (csp && !/base-uri 'none'/.test(csp)), "CSP sin default-src 'none' / base-uri 'none'");
+  no(!/<meta name="robots" content="[^"]*\bindex\b[^"]*"/.test(html) || /noindex/.test((/<meta name="robots" content="([^"]*)"/.exec(html) || [, ''])[1]), 'meta robots ausente o con noindex en index.html');
+  no(/hidden/.test((/<nav id="nav"[\s\S]*?<\/nav>/.exec(html) || [''])[0]), 'enlace oculto (hidden) en el menú: depende de JS para verse');
+  [...html.matchAll(/<link rel="preload"[^>]*href="([^"]+)"/g)].forEach(m => no(!fs.existsSync(m[1]), 'preload de archivo inexistente: ' + m[1]));
+  const localFonts = [...css.matchAll(/url\(([^)]+\.woff2)\)/g)].map(m => m[1]); no(!localFonts.length, 'styles.css no declara tipografías locales');
+  no(!(html.match(/<img class="hero-img"[^>]*fetchpriority="high"/)) && S.hero.image && S.hero.image.status === 'authorized', 'hero: falta <img> estática con fetchpriority="high"');
+  no(fs.existsSync('don-quiquiche-landing-v4.html'), 'quedó el prototipo huérfano don-quiquiche-landing-v4.html (duplicado indexable)');
+}
+
 // 2. Protocolos y rel de enlaces externos
 [...html.matchAll(/\s(?:href|src)="([^"]*)"/g)].forEach(([, u]) => { if (/^[a-z][a-z0-9+.-]*:/i.test(u) && !/^(https:|tel:|mailto:)/i.test(u)) err.push('protocolo no permitido en HTML: ' + u.slice(0, 40)); });
 [...html.matchAll(/<a\b[^>]*>/g)].forEach(([a]) => { if (/target="_blank"/.test(a)) { const rel = (/rel="([^"]*)"/.exec(a) || [, ''])[1]; no(!(rel.includes('noopener') && rel.includes('noreferrer')), 'target=_blank sin rel="noopener noreferrer": ' + a.slice(0, 60)); } });
