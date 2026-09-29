@@ -39,6 +39,11 @@
         g.fromTo(w, { opacity: 0.16 }, { opacity: 1, stagger: 0.09, ease: 'none', scrollTrigger: { trigger: '.manifiesto', start: 'top 82%', end: 'bottom 55%', scrub: true } });
       }
 
+      /* 3b. La casa: el fuego se enciende al ritmo de la lectura (la foto pasa de brasa apagada a llama viva) */
+      g.timeline({ scrollTrigger: { trigger: '.casa-body', start: 'top 85%', end: 'bottom 45%', scrub: true } })
+        .fromTo('.casa-fuego img', { filter: 'grayscale(.85) brightness(.55) contrast(1.1)' }, { filter: 'grayscale(0) brightness(1) contrast(1.04)', ease: 'none' }, 0)
+        .fromTo('.casa-fuego', { '--glow': 0 }, { '--glow': 1, ease: 'none' }, 0);
+
       /* 4. Fotografías: cada marco se revela desde un lado distinto y la imagen se asienta */
       const from = { l: 'inset(0% 100% 0% 0%)', r: 'inset(0% 0% 0% 100%)', b: 'inset(100% 0% 0% 0%)' };
       $$('[data-reveal]').forEach(f => g.timeline({ scrollTrigger: { trigger: f, start: 'top 88%', once: true } })
@@ -69,7 +74,7 @@
 
       /* Solo escritorio: profundidad entre planos y botones magnéticos */
       g.matchMedia().add(wide, () => {
-        [['.casa-fuego', -50, 50], ['.plato-a', 40, -40], ['.plato-b', -70, 80], ['.cinta', 30, -30], ['.parrillada', -40, 40], ['.duo-a', 30, -30], ['.duo-b', -40, 40], ['#gallery .g1', 30, -30], ['#gallery .g2', -60, 60], ['#gallery .g3', 40, -40]]
+        [['.plato-a', 40, -40], ['.plato-b', -70, 80], ['.cinta', 30, -30], ['.parrillada', -40, 40], ['.duo-a', 30, -30], ['.duo-b', -40, 40], ['#gallery .g1', 30, -30], ['#gallery .g2', -60, 60], ['#gallery .g3', 40, -40]]
           .forEach(([sel, a, b]) => { const el = $(sel); if (el) g.fromTo(el, { y: a }, { y: b, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } }); });
       });
       if (matchMedia(fine).matches) $$('.hero .btn, .pena .btn, .contact .btn').forEach(b => {
