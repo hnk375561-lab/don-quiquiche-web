@@ -34,7 +34,11 @@ Auditoría completa del 29/09/2026: ver informe de auditoría (fuera del repo). 
 - Contradicción WhatsApp: con 9 (549…) vs. sin 9; se usa 549… (formato móvil AR).
 - Al confirmar datos, actualizar `verification` y, si corresponde, relajar a propósito la lista de campos "prohibidos" del JSON-LD en `scripts/check.mjs` (geo, horarios, menú, etc.).
 
+## Fotos
+Hero, og.jpg y 5 fotos de galería (parrilla, salón con música, baile, 2 platos) provienen de la página de Facebook del local, descargadas por el desarrollador. **PENDIENTE: OK escrito del dueño** para publicarlas; al tenerlo, completar `authorizedBy`/`authorizedAt` en `data/site.js` (hoy el build avisa). Se optimizaron y se les quitaron los metadatos. Hay una foto de comensales de cerca (no usada) por privacidad. Para la versión final conviene pedir los originales.
+
 ## Historial de cambios
+- Ronda 29/09/2026 (3): demo visual (brasas, llama, cinta, íconos, luces de escenario) y fotos reales integradas.
 - Ronda 29/09/2026 (aplicación de la auditoría): Facebook oculto; copy prudente (sin "carta" en meta, sin "encuentros culturales", sin afirmar Instagram/WhatsApp); H1 con espacio; se quitó el trío decorativo duplicado; botón "Llamar" en hero y barra móvil; mensaje de peña visible sin JavaScript; favicon limpio de metadatos C2PA (sigue siendo provisorio, no es el logo del negocio); esquemas de eventos/galería ampliados y bloque `verification`.
 - Ronda 29/09/2026 (2): `404.html` (noindex, autónoma, sincronizada por el build y verificada por `check`); bloque "Antes de venir" alimentado por `practical`, que solo publica datos confirmados por el negocio (con responsable y fecha); validación y avisos para ítems sin confirmar.
 - Rondas anteriores: fecha local para eventos; menú móvil accesible; render con DOM; JSON-LD generado; validador de datos; contraste AA; `apple-touch-icon.png`.

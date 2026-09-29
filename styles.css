@@ -94,3 +94,13 @@ dl.h.sm{font-size:.9rem}dl.h.sm dt{font-size:1.05rem}
 .eq i:nth-child(6){animation-delay:-2.22s;animation-duration:0.70s}
 .eq i:nth-child(7){animation-delay:-2.59s;animation-duration:0.95s}
 @keyframes eq{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+
+/* ---- Fotos reales ---- */
+.hero-img{object-position:60% 55%}
+.hero-img+.veil{background:linear-gradient(180deg,rgba(23,17,13,.4),rgba(23,17,13,.55) 40%,rgba(23,17,13,.9))}
+.hero-img~.flame,.hero:has(.hero-img)::after{display:none}
+#galeria{background:var(--carbon2)}
+#gallery{gap:1rem}#gallery figure{margin:0}
+#gallery img{height:auto;aspect-ratio:4/3;object-position:50% 45%;display:block}
+@media(min-width:40rem){#gallery figure:first-child{grid-column:1/-1}#gallery figure:first-child img{aspect-ratio:21/9}}
+#gallery figcaption{padding-top:.4rem}

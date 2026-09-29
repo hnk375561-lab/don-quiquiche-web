@@ -1,8 +1,8 @@
 /* ÚNICA fuente de datos editable. Cada dato: status + fuente (ver README). */
 window.SITE = {
   siteUrl: null, // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
-  ogImage: null, // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
-  hero: { image: null }, // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
+  ogImage: "assets/og.jpg", // 1200x630, recorte de la foto de la parrilla. Se emite en el HTML cuando exista siteUrl // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
+  hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
   // SEO / redes: el build genera <title>, description, og:* y twitter:* desde acá (no editar index.html a mano)
   title: "Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay",
   description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios y cómo llegar.",
@@ -32,7 +32,13 @@ window.SITE = {
   categories: ["Asado", "Parrillada"], // B (reseñas). NO es carta. Picada/Pizza/Ensalada (solo directorios) retiradas de la UI hasta tener la carta (DQ-021); reponerlas si el dueño las confirma.
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
-  gallery: [ /* {src:"assets/x.webp", w:1200, h:800, alt:"...", caption:"(opcional) leyenda", credit:"(opcional) fotógrafo", authorizedBy:"quién autorizó", authorizedAt:"YYYY-MM-DD", status:"authorized"} — solo authorized */ ],
+  gallery: [
+    {src:"assets/sala1.webp", w:1200, h:554, alt:"Salón de Parrilla Don Quiquiche con las mesas ocupadas y un grupo musical tocando en vivo bajo el cartel del local", credit:"Parrilla Don Quiquiche", status:"authorized"},
+    {src:"assets/baile.webp", w:1200, h:675, alt:"Noche de baile en el salón, con luces de colores y gente bailando frente al escenario", credit:"Parrilla Don Quiquiche", status:"authorized"},
+    {src:"assets/plato1.webp", w:900, h:1200, alt:"Plato de carne gratinada con queso, tomate y orégano, con papas fritas", credit:"Parrilla Don Quiquiche", status:"authorized"},
+    {src:"assets/plato2.webp", w:900, h:1200, alt:"Dos platos de carne rebozada con queso, salsa, huevo frito y papas fritas", credit:"Parrilla Don Quiquiche", status:"authorized"},
+    {src:"assets/sala2.webp", w:1200, h:554, alt:"Salón lleno durante una actuación en vivo, con el escenario al fondo", credit:"Parrilla Don Quiquiche", status:"authorized"}
+  ], // fotos de la página del local; PENDIENTE: OK del dueño (authorizedBy/authorizedAt). Opcionales: caption, authorizedBy, authorizedAt
   // "Antes de venir" (pagos, estacionamiento, accesibilidad, niños, mascotas…). Solo se publica lo que tenga status "confirmed-by-business".
   // Ejemplo: { label: "Medios de pago", text: "…", status: "confirmed-by-business", verifiedBy: "Nombre de quien confirmó", updatedAt: "YYYY-MM-DD" }
   practical: [],
