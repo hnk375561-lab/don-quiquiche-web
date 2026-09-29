@@ -6,15 +6,16 @@
   // Fecha LOCAL (no UTC): evita errores de agenda cerca de medianoche en Argentina
   const localISO = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
+  try {
   $$('[data-wa]').forEach(a => ext(a, wa(a.dataset.wa)));
   $$('[data-map]').forEach(a => ext(a, S.mapsUrl));
   $$('[data-ig]').forEach(a => ext(a, S.instagram));
   $$('[data-fb]').forEach(a => S.facebook ? ext(a, S.facebook) : (a.closest('li') || a).hidden = true);
   $$('[data-tel]').forEach(a => { a.href = 'tel:' + S.phone; if (!a.textContent.trim()) a.textContent = S.phoneLabel; });
   // "Carta": si no hay carta oficial, la acción es honesta ("Consultar")
-  $$('[data-menu]').forEach(a => { if (S.menu.url) ext(a, S.menu.url); else { ext(a, wa('carta')); if (a.dataset.alt) a.textContent = a.dataset.alt; } });
+  $$('[data-menu]').forEach(a => { if (S.menu.url) ext(a, S.menu.url); else { ext(a, wa('carta')); if (a.dataset.alt) a.textContent = a.dataset.alt; a.setAttribute('aria-label', 'Consultar la carta por WhatsApp'); } });
   $$('[data-address]').forEach(e => e.textContent = S.address);
-  $$('[data-hours]').forEach(e => S.hours.forEach(([d, h]) => { const r = el('div'); r.append(el('dt', {}, d), el('dd', {}, h)); e.append(r); }));
+  $$('[data-hours]').forEach(e => e.replaceChildren(...S.hours.map(([d, h]) => { const r = el('div'); r.append(el('dt', {}, d), el('dd', {}, h)); return r; })));
   $('#cats').replaceChildren(...S.categories.map(c => el('li', {}, c)));
 
   // Eventos: solo confirmados y futuros (hora local)
@@ -33,7 +34,9 @@
   const hi = S.hero && S.hero.image;
   if (hi && hi.status === 'authorized') { const hero = $('.hero'); hero.prepend(el('div', { class: 'veil' })); hero.prepend(el('img', { class: 'hero-img', src: hi.src, width: hi.w, height: hi.h, alt: hi.alt || '', fetchpriority: 'high', decoding: 'async' })); }
   $('#year').textContent = new Date().getFullYear();
+  } catch (e) { console.warn('Render de datos falló; queda el HTML estático:', e); }
 
+  try {
   // Menú móvil accesible: Escape (devuelve foco), click fuera, cierre al elegir, aria dinámico
   const btn = $('#burger'), nav = $('#nav'), hd = $('header');
   const set = (o, focus) => { nav.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); btn.setAttribute('aria-label', o ? 'Cerrar menú' : 'Abrir menú'); if (!o && focus) btn.focus(); };
@@ -46,4 +49,5 @@
     const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target))), { threshold: .12 });
     $$('.rv').forEach(e => { e.classList.add('rv-on'); io.observe(e); });
   }
+  } catch (e) { console.warn('UI:', e); }
 })();

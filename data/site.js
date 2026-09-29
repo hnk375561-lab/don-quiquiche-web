@@ -26,6 +26,5 @@ window.SITE = {
   categories: ["Asado", "Parrillada", "Picada", "Pizza", "Ensalada"], // B (Restaurant Guru/reseñas). NO es carta.
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
-  gallery: [ /* {src:"assets/x.webp", w:1200, h:800, alt:"...", credit:"...", status:"authorized"} — solo authorized */ ],
-  reputation: { /* solo interno: NO se muestra en el sitio (dato de tercero, dinámico) */ text: "4,1/5 en Google (≈245 reseñas)", source: "Restaurant Guru", date: "28/09/2026" } // B, dinámico
+  gallery: [ /* {src:"assets/x.webp", w:1200, h:800, alt:"...", credit:"...", status:"authorized"} — solo authorized */ ]
 };
