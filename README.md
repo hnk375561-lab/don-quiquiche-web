@@ -1,5 +1,5 @@
 # Parrilla Don Quiquiche — sitio estático
-Sin dependencias. Abrir `index.html` o `python3 -m http.server`. Desplegar la carpeta en cualquier hosting estático (GitHub Pages, Netlify, etc.).
+Sin dependencias (Node solo para `scripts/`). Abrir `index.html` o `python3 -m http.server`. Desplegar la carpeta en cualquier hosting estático (GitHub Pages, Netlify, etc.).
 **Editar datos:** `data/site.js` (teléfono, WhatsApp, horarios, redes, categorías, carta, eventos, galería). Después de editar, correr `node scripts/build.mjs` (idempotente): valida los datos y regenera en `index.html` los enlaces, horarios, dirección, JSON-LD, canonical/OG y el sitemap desde esa misma fuente. Así el contacto y la ubicación funcionan aunque el JS falle. No editar esos bloques a mano.
 ## Pendientes (no inventados)
 - Dominio → canonical, og:url, sitemap.xml, og:image (foto real).
@@ -24,12 +24,12 @@ Sin dependencias. Abrir `index.html` o `python3 -m http.server`. Desplegar la ca
 - Broccolino: "8.2 (399 reseñas)" y "precios accesibles" — escala propia de tercero, descartado.
 
 ## Cómo dejarlo listo para dominio
-1. En `data/site.js`: `siteUrl: "https://tu-dominio"` y `ogImage: "assets/og.jpg"` (1200x630, foto real y autorizada).
+1. En `data/site.js`: `siteUrl` con el dominio final (https, sin barra final) y `ogImage: "assets/og.jpg"` (1200x630, foto real y autorizada).
 2. `node scripts/build.mjs` → escribe canonical, og:url, og:image, sitemap.xml y robots.txt con Sitemap.
 ## Fotos
 Hero: `hero.image` en `data/site.js`. Galería: `gallery[]`. Solo se muestran ítems con `status:"authorized"`; la sección "Fotos" aparece sola.
 ## Cambios de esta ronda
-Fecha local (no UTC) para eventos; menú móvil con Escape/click fuera/aria dinámico; "Carta" pasa a "Consultar" mientras no exista carta oficial; sin innerHTML ni estilos inline; rating de terceros retirado de la UI (queda en datos); contraste de horarios corregido; JSON-LD generado desde `site.js`; validador de datos.
+Fecha local (no UTC) para eventos; menú móvil con Escape/click fuera/aria dinámico; "Carta" pasa a "Consultar" mientras no exista carta oficial; render con DOM (sin HTML inyectado) y sin estilos inline; rating de terceros retirado de la UI (queda en datos); contraste de horarios corregido; JSON-LD generado desde `site.js`; validador de datos.
 
 ## Ronda V4 (auditoría 29/09/2026)
 Nota: la auditoría V4 se hizo contra el `main` público, que tenía una mezcla de versiones (main.js viejo con `$('#rep')` sin elemento, sin `scripts/build.mjs`). Esta versión ya no tiene esa referencia. **Reemplazar el contenido completo del repo con este zip**, no fusionar archivo por archivo.
@@ -44,3 +44,7 @@ Nota: la auditoría V4 se hizo contra el `main` público, que tenía una mezcla 
 - Textos de horarios y carta sin exponer la fuente de terceros al visitante; la trazabilidad queda en `data/site.js` y en este README.
 - `assets/apple-touch-icon.png` (180x180) agregado. Preload del hero: el build lo agrega solo cuando `hero.image` está autorizado.
 - Sin cambios en datos: nada de email, segundo teléfono, delivery, reservas, precios ni agenda.
+
+## Verificaciones (todas reales, sin dependencias)
+`node scripts/build.mjs` — valida datos y sincroniza HTML/SEO/robots/sitemap (idempotente; sale con código ≠ 0 si hay datos inválidos).
+`node scripts/check.mjs` — falla si encuentra: HTML inyectado en main.js, estilos inline, fecha UTC, restos de `#rep`/reputación, placeholders de dominio, anclas rotas o archivos referenciados que no existen.

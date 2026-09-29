@@ -42,5 +42,6 @@ h = h.replace(/(<(\w+)[^>]*data-address[^>]*>)[^<]*(<\/\2>)/g, `$1${esc(S.addres
 h = h.replace(/(<ul class="cats" id="cats">)[\s\S]*?(<\/ul>)/, `$1${S.categories.map(c => `<li>${esc(c)}</li>`).join('')}$2`);
 h = h.replace(/(<span id="year">)[^<]*(<\/span>)/, `$1${new Date().getFullYear()}$2`);
 fs.writeFileSync('index.html', h);
+if (!S.siteUrl) fs.writeFileSync('robots.txt', 'User-agent: *\nAllow: /\n');
 if (S.siteUrl) { fs.writeFileSync('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${S.siteUrl}/</loc></url></urlset>\n`); fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${S.siteUrl}/sitemap.xml\n`); }
 console.log('OK: datos válidos; JSON-LD y SEO sincronizados' + (S.siteUrl ? '; sitemap/robots generados' : ' (sin siteUrl: sitemap pendiente)'));
