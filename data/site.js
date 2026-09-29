@@ -40,9 +40,9 @@ window.SITE = {
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
   gallery: [
-    {src:"assets/mesa-vino.webp", w:428, h:662, alt:"Parrillita con achuras y chorizos sobre la mesa, con una botella de vino y el salón al fondo", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
-    {src:"assets/copas.webp", w:427, h:655, alt:"Dos copas de vino tinto con hielo sobre la mesa, con el salón y el cartel del local al fondo", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
-    {src:"assets/brindis.webp", w:576, h:664, alt:"Botella de champagne dulce junto a postres y copas, bajo luces de colores", credit:"Parrilla Don Quiquiche", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"}
+    {src:"assets/mesa-vino.webp", w:428, h:662, alt:"Parrillita con achuras y chorizos sobre la mesa, con una botella de vino y el salón al fondo", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
+    {src:"assets/copas.webp", w:427, h:655, alt:"Dos copas de vino tinto con hielo sobre la mesa, con el salón y el cartel del local al fondo", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"},
+    {src:"assets/brindis.webp", w:576, h:664, alt:"Botella de champagne dulce junto a postres y copas, bajo luces de colores", authorizedBy:"Fuente: Facebook oficial de Parrilla Don Quiquiche (confirmar uso con el dueño)", status:"authorized"}
   ], // fotos de la página del local; PENDIENTE: OK del dueño (authorizedBy/authorizedAt). Opcionales: caption, authorizedBy, authorizedAt
   // "Antes de venir" (pagos, estacionamiento, accesibilidad, niños, mascotas…). Solo se publica lo que tenga status "confirmed-by-business".
   // Ejemplo: { label: "Medios de pago", text: "…", status: "confirmed-by-business", verifiedBy: "Nombre de quien confirmó", updatedAt: "YYYY-MM-DD" }

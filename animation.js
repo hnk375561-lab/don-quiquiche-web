@@ -49,13 +49,7 @@
       $$('[data-reveal]').forEach(f => g.timeline({ scrollTrigger: { trigger: f, start: 'top 88%', once: true } })
         .fromTo(f, { clipPath: from[f.dataset.reveal] || from.b }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.5, ease: 'expo.inOut' })
         .from($('img', f), { scale: 1.32, duration: 1.9, ease: 'power3.out' }, 0));
-      $$('#gallery figure').forEach(f => g.from(f, { opacity: 0, y: 50, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: f, start: 'top 90%', once: true } }));
-
-      /* 5. La mesa: ASADO y PARRILLADA cruzan en sentidos opuestos mientras los platos derivan a distinta velocidad */
-      const cats = $$('#cats li'), mesa = { trigger: '.mesa', start: 'top 75%', end: 'bottom 25%', scrub: true };
-      const sh = matchMedia(wide).matches ? 7 : 0;
-      if (cats[0] && sh) g.fromTo(cats[0], { xPercent: -sh }, { xPercent: sh, ease: 'none', scrollTrigger: mesa });
-      if (cats[1] && sh) g.fromTo(cats[1], { xPercent: sh }, { xPercent: -sh, ease: 'none', scrollTrigger: mesa });
+      $$('#gallery figure').forEach(f => g.from(f, { opacity: 0, y: 24, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: f, start: 'top 92%', once: true } }));
 
       /* 6. La peña: la escena queda fija; el ventanal de la sala se abre y la imagen se acerca */
       g.timeline({ scrollTrigger: { trigger: '.pena-scene', start: 'top top', end: 'bottom bottom', scrub: true } })
@@ -72,11 +66,6 @@
       g.fromTo('.contact-photo', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top bottom', end: 'bottom bottom', scrub: true } });
       g.from('.footer-mark', { yPercent: 45, opacity: 0, duration: 1.5, ease: 'expo.out', scrollTrigger: { trigger: 'footer', start: 'top 92%', once: true } });
 
-      /* Solo escritorio: profundidad entre planos y botones magnéticos */
-      g.matchMedia().add(wide, () => {
-        [['.plato-a', 40, -40], ['.plato-b', -70, 80], ['.cinta', 30, -30], ['.parrillada', -40, 40], ['.duo-a', 30, -30], ['.duo-b', -40, 40], ['#gallery .g1', 30, -30], ['#gallery .g2', -60, 60], ['#gallery .g3', 40, -40]]
-          .forEach(([sel, a, b]) => { const el = $(sel); if (el) g.fromTo(el, { y: a }, { y: b, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } }); });
-      });
       if (matchMedia(fine).matches) $$('.hero .btn, .pena .btn, .contact .btn').forEach(b => {
         const x = g.quickTo(b, 'x', { duration: 0.5, ease: 'power3' }), y = g.quickTo(b, 'y', { duration: 0.5, ease: 'power3' });
         b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); x((e.clientX - r.left - r.width / 2) * 0.22); y((e.clientY - r.top - r.height / 2) * 0.3); });
