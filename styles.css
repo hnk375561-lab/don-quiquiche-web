@@ -130,10 +130,10 @@ section{position:relative}
 #gallery figcaption{font-size:.82rem;color:var(--ceniza);padding-top:.6rem}
 /* ---------- Visita: pasa la noche hasta las 04:00 ---------- */
 .visita{background:var(--noche);color:var(--hueso)}
-.visita-clock{height:150svh;background:linear-gradient(180deg,var(--vino),var(--noche) 60%)}
-.visita-sticky{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)}
+.visita-clock{background:linear-gradient(180deg,var(--vino),var(--noche) 9rem);padding:clamp(6rem,11vw,9rem) var(--pad) 0}
+.visita-sticky{max-width:110rem;margin:auto}
 .reloj-lead{font:italic 340 clamp(1.3rem,2.4vw,2.2rem)/1.1 var(--serif);max-width:none}
-.reloj{font:800 clamp(6rem,24vw,24rem)/.85 var(--brand);white-space:nowrap;font-variant-numeric:tabular-nums;max-width:none;margin:.1em 0 0 -.03em;color:var(--hueso)}
+.reloj{font:800 clamp(5rem,15vw,14rem)/.85 var(--brand);white-space:nowrap;font-variant-numeric:tabular-nums;max-width:none;margin:.1em 0 0 -.03em;color:var(--hueso)}
 .reloj .sep{display:inline-block;padding:0 .03em;color:var(--brasa)}
 .visita-info{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gap);padding:clamp(3rem,7vw,6rem) var(--pad) clamp(5rem,9vw,8rem);max-width:110rem;margin:auto;align-items:start}
 .visita-main{grid-column:1/7}.visita-main h2{font-size:clamp(2.6rem,5.6vw,6rem)}.visita-main p{margin-top:1.4rem;color:var(--ceniza)}.visita-main .status{margin-top:1.8rem;font-weight:600}
@@ -150,7 +150,7 @@ section{position:relative}
 #antes{padding:5rem var(--pad);background:var(--cal)}#antes .split{max-width:70rem;margin:auto}#antes .eyebrow{color:var(--muted);font-size:.9rem}#antes .h div{padding:1rem 0;border-bottom:1px solid var(--line)}#antes dt{font-weight:600}
 footer{background:#080d18;color:var(--hueso);padding:clamp(3rem,6vw,5rem) var(--pad) 6.5rem;overflow:hidden}
 .footer-main{max-width:110rem;margin:auto;display:grid;grid-template-columns:1fr auto;gap:1rem 4rem;align-items:end}.footer-main ul{display:flex;flex-wrap:wrap;gap:0 2rem}
-.footer-mark{font:800 clamp(4rem,24.5vw,30rem)/.8 var(--brand);text-transform:uppercase;grid-column:1/-1;margin:0 0 1rem -.02em;color:rgba(240,232,216,.14);max-width:none;white-space:nowrap}
+.footer-mark{font:800 clamp(4rem,24.5vw,30rem)/.8 var(--brand);text-transform:uppercase;grid-column:1/-1;margin:0 0 1rem -.02em;color:var(--hueso);max-width:none;white-space:nowrap}
 footer li a{display:inline-flex;min-height:44px;align-items:center;text-decoration:none}footer li a:hover{color:var(--brasa)}
 .footer-hours{color:var(--ceniza);font-size:.92rem;justify-self:end;text-align:right;max-width:none}
 .footer-bottom{max-width:110rem;margin:2rem auto 0;display:flex;justify-content:space-between;gap:1rem;color:var(--ceniza);border-top:1px solid rgba(240,232,216,.15);padding-top:1rem}
@@ -192,7 +192,7 @@ html{scroll-padding-bottom:6rem}
 .archivo-head{margin-bottom:2rem}
 #gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:1rem;margin:0 calc(-1 * var(--pad));padding:0 var(--pad) 1rem}
 #gallery figure{flex:0 0 68%;scroll-snap-align:start}
-.visita-clock{height:130svh}.reloj{font-size:34vw}.hours div{flex-direction:column;gap:.15rem}.hours dd{text-align:left}
+.reloj{font-size:32vw}.hours div{flex-direction:column;gap:.15rem}.hours dd{text-align:left}
 .visita-data{margin-top:3rem}.contact-photo{margin-top:2rem}.footer-hours{justify-self:start;text-align:left}
 .footer-main{grid-template-columns:1fr 1fr}.footer-hours{justify-self:start;text-align:left;grid-column:1/-1}
 .quick-actions{display:flex;gap:.5rem;position:fixed;inset:auto .75rem calc(.75rem + env(safe-area-inset-bottom)) .75rem;z-index:40;padding:.5rem;background:rgba(8,13,24,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}

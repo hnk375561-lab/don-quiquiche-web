@@ -57,11 +57,6 @@
         .fromTo('.pena-bg img', { scale: 1.28 }, { scale: 1, ease: 'none', duration: 1 }, 0)
         .fromTo('.pena-dim', { opacity: 1 }, { opacity: 0.45, ease: 'none', duration: 0.7 }, 0);
 
-      /* 7. Madrugada de sábado: el reloj avanza de 20:00 a 04:00 con el scroll */
-      const hh = $('.reloj .hh');
-      if (hh) { const o = { v: 20 }; hh.textContent = '20';
-        g.to(o, { v: 28, ease: 'none', onUpdate: () => { hh.textContent = String(Math.round(o.v) % 24).padStart(2, '0'); },
-          scrollTrigger: { trigger: '.visita-clock', start: 'top top', end: 'bottom bottom', scrub: true } }); }
       g.from('.visita-main > *, .hours div, .visita-data > *', { y: 34, opacity: 0, stagger: 0.08, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.visita-info', start: 'top 75%', once: true } });
       g.fromTo('.contact-photo', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.contact', start: 'top bottom', end: 'bottom bottom', scrub: true } });
       g.from('.footer-mark', { yPercent: 45, opacity: 0, duration: 1.5, ease: 'expo.out', scrollTrigger: { trigger: 'footer', start: 'top 92%', once: true } });
