@@ -36,4 +36,5 @@ Auditoría completa del 29/09/2026: ver informe de auditoría (fuera del repo). 
 
 ## Historial de cambios
 - Ronda 29/09/2026 (aplicación de la auditoría): Facebook oculto; copy prudente (sin "carta" en meta, sin "encuentros culturales", sin afirmar Instagram/WhatsApp); H1 con espacio; se quitó el trío decorativo duplicado; botón "Llamar" en hero y barra móvil; mensaje de peña visible sin JavaScript; favicon limpio de metadatos C2PA (sigue siendo provisorio, no es el logo del negocio); esquemas de eventos/galería ampliados y bloque `verification`.
+- Ronda 29/09/2026 (2): `404.html` (noindex, autónoma, sincronizada por el build y verificada por `check`); bloque "Antes de venir" alimentado por `practical`, que solo publica datos confirmados por el negocio (con responsable y fecha); validación y avisos para ítems sin confirmar.
 - Rondas anteriores: fecha local para eventos; menú móvil accesible; render con DOM; JSON-LD generado; validador de datos; contraste AA; `apple-touch-icon.png`.

@@ -2,10 +2,10 @@
 // Lo usan build.mjs (escribe) y check.mjs (verifica que index.html ya está sincronizado).
 export const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 export const REL = 'noopener noreferrer';
-export const MARKERS = ['SEO', 'LD', 'STATIC_LINK', 'STATIC_HOURS', 'STATIC_ADDRESS', 'STATIC_CATEGORIES', 'STATIC_YEAR'];
+export const MARKERS = ['SEO', 'LD', 'STATIC_LINK', 'STATIC_HOURS', 'STATIC_ADDRESS', 'STATIC_CATEGORIES', 'STATIC_YEAR', 'STATIC_PRACTICAL', 'STATIC_PRACTICAL_NAV'];
 
 /** Reemplaza el contenido de cada par de markers `name`. fn(params) recibe los atributos key="value" del marker de apertura. */
-function fill(html, name, fn, { required = true } = {}) {
+function fillAll(html, name, fn, { required = true } = {}) {
   const re = new RegExp(`<!--BUILD:${name}((?:\\s+[\\w-]+="[^"]*")*)\\s*-->[\\s\\S]*?<!--/BUILD:${name}-->`, 'g');
   let n = 0;
   const out = html.replace(re, (m, attrs) => {
@@ -17,7 +17,9 @@ function fill(html, name, fn, { required = true } = {}) {
   return out;
 }
 
-export function render(html, S, { year = new Date().getFullYear() } = {}) {
+export function render(html, S, { year = new Date().getFullYear(), partial = false } = {}) {
+  // partial: páginas auxiliares (404) que solo llevan algunos markers
+  const fill = (h, name, fn) => fillAll(h, name, fn, { required: !partial });
   const [street, city, region] = S.address.split(',').map(x => x.trim());
   const wa = k => `https://wa.me/${S.whatsapp}?text=${encodeURIComponent(S.waMessages[k] || S.waMessages.general)}`;
 
@@ -47,17 +49,21 @@ export function render(html, S, { year = new Date().getFullYear() } = {}) {
   // --- Enlaces críticos: el <a> completo se genera desde los params del marker ---
   const link = p => {
     const kind = p.kind, val = p.val || 'general';
-    const url = { wa: () => wa(val), map: () => S.mapsUrl, ig: () => S.instagram, fb: () => S.facebook, tel: () => 'tel:' + S.phone, menu: () => S.menu.url || wa('carta') }[kind];
+    const url = { home: () => S.siteUrl ? S.siteUrl + '/' : '/', wa: () => wa(val), map: () => S.mapsUrl, ig: () => S.instagram, fb: () => S.facebook, tel: () => 'tel:' + S.phone, menu: () => S.menu.url || wa('carta') }[kind];
     if (!url) throw new Error(`STATIC_LINK: kind inválido "${kind}"`);
     const href = url(); if (!href) return ''; // p.ej. facebook = null: el enlace (y su <li>) desaparece
     const noMenu = kind === 'menu' && !S.menu.url;
     const text = kind === 'menu' ? (noMenu ? p.alt : p.label) : kind === 'tel' ? (p.label || S.phoneLabel) : p.label;
     if (!text) throw new Error(`STATIC_LINK kind="${kind}": falta label${kind === 'menu' ? '/alt' : ''}`);
     const attrs = [p.class && `class="${esc(p.class)}"`, kind === 'wa' ? `data-wa="${esc(val)}"` : `data-${kind}`, kind === 'menu' && `data-label="${esc(p.label)}"`, kind === 'menu' && `data-alt="${esc(p.alt)}"`,
-      noMenu && 'aria-label="Consultar la carta por WhatsApp"', `href="${esc(href)}"`, kind !== 'tel' && `target="_blank" rel="${REL}"`].filter(Boolean).join(' ');
+      noMenu && 'aria-label="Consultar la carta por WhatsApp"', `href="${esc(href)}"`, !['tel', 'home'].includes(kind) && `target="_blank" rel="${REL}"`].filter(Boolean).join(' ');
     const a = `<a ${attrs}>${esc(text)}</a>`;
     return p.wrap === 'li' ? `<li>${a}</li>` : a;
   };
+
+  // --- "Antes de venir": SOLO datos confirmados por el negocio (status confirmed-by-business). Sin datos confirmados, no hay sección ---
+  const prac = (S.practical || []).filter(x => x && x.status === 'confirmed-by-business');
+  const practicalSection = prac.length ? `<section id="antes"><div class="wrap split"><div class="rv"><p class="eyebrow">Antes de venir</p><h2>Datos útiles</h2></div><dl class="h rv">${prac.map(x => `<div><dt>${esc(x.label)}</dt><dd>${esc(x.text)}</dd></div>`).join('')}</dl></div></section>` : '';
 
   let h = html;
   h = fill(h, 'SEO', () => `\n${seo}\n`);
@@ -67,6 +73,8 @@ export function render(html, S, { year = new Date().getFullYear() } = {}) {
   h = fill(h, 'STATIC_ADDRESS', () => esc(S.address));
   h = fill(h, 'STATIC_CATEGORIES', () => S.categories.map(c => `<li>${esc(c)}</li>`).join(''));
   h = fill(h, 'STATIC_YEAR', () => String(year));
+  h = fill(h, 'STATIC_PRACTICAL', () => practicalSection);
+  h = fill(h, 'STATIC_PRACTICAL_NAV', () => prac.length ? '<a href="#antes">Antes de venir</a>' : '');
   return h.replace(/<html lang="[^"]*">/, `<html lang="${S.locale.replace('_', '-')}">`);
 }
 

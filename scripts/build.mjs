@@ -9,6 +9,7 @@ warnings.forEach(w => console.warn('AVISO: ' + w));
 if (errors.length) { console.error('ERRORES en data/site.js:\n- ' + errors.join('\n- ')); process.exit(1); }
 
 fs.writeFileSync('index.html', render(fs.readFileSync('index.html', 'utf8'), S));
+fs.writeFileSync('404.html', render(fs.readFileSync('404.html', 'utf8'), S, { partial: true }));
 
 if (!S.siteUrl) { fs.writeFileSync('robots.txt', 'User-agent: *\nAllow: /\n'); fs.rmSync('sitemap.xml', { force: true }); }
 else {

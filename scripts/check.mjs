@@ -16,6 +16,20 @@ markerErrors(html).forEach(e => err.push(e));
 if (!v.errors.length) { try { no(render(html, S) !== html, 'index.html desincronizado de data/site.js (correr npm run build)'); } catch (e) { err.push('render: ' + e.message); } }
 no(/<a\b[^>]*\sdata-(wa|map|ig|fb|tel|menu)\b/.test(html.replace(/<!--BUILD:STATIC_LINK\b[\s\S]*?<!--\/BUILD:STATIC_LINK-->/g, '')), 'enlace crítico (data-wa/map/ig/fb/tel/menu) fuera de un marker BUILD:STATIC_LINK: el build no lo mantiene');
 
+// 0c. 404.html: sincronizada, no indexable, un H1, sin rutas relativas (funciona en cualquier URL)
+{
+  const nf = fs.existsSync('404.html') ? r('404.html') : null;
+  if (nf === null) err.push('falta 404.html');
+  else {
+    markerErrors(nf).forEach(e => err.push('404.html → ' + e));
+    if (!v.errors.length) { try { no(render(nf, S, { partial: true }) !== nf, '404.html desincronizada (correr npm run build)'); } catch (e) { err.push('404.html render: ' + e.message); } }
+    no(!/<meta name="robots" content="noindex/.test(nf), '404.html sin meta robots noindex');
+    no((nf.match(/<h1[\s>]/g) || []).length !== 1, '404.html: debe haber un único H1');
+    [...nf.matchAll(/(?:src|href)="((?!https?:|tel:|mailto:|\/)[^"]+)"/g)].forEach(m => err.push('404.html: ruta relativa que se rompe en URLs anidadas: ' + m[1]));
+    no(/<a\b[^>]*\sdata-(wa|tel|home)\b/.test(nf.replace(/<!--BUILD:STATIC_LINK\b[\s\S]*?<!--\/BUILD:STATIC_LINK-->/g, '')), '404.html: enlace crítico fuera de marker');
+  }
+}
+
 // 1. Reglas previas
 no(/innerHTML|outerHTML|insertAdjacentHTML/.test(js), 'main.js inyecta HTML');
 no(/style="/.test(html), 'index.html tiene estilos inline');

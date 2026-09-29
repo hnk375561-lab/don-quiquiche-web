@@ -33,6 +33,9 @@ window.SITE = {
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
   gallery: [ /* {src:"assets/x.webp", w:1200, h:800, alt:"...", caption:"(opcional) leyenda", credit:"(opcional) fotógrafo", authorizedBy:"quién autorizó", authorizedAt:"YYYY-MM-DD", status:"authorized"} — solo authorized */ ],
+  // "Antes de venir" (pagos, estacionamiento, accesibilidad, niños, mascotas…). Solo se publica lo que tenga status "confirmed-by-business".
+  // Ejemplo: { label: "Medios de pago", text: "…", status: "confirmed-by-business", verifiedBy: "Nombre de quien confirmó", updatedAt: "YYYY-MM-DD" }
+  practical: [],
   // DQ-031: trazabilidad por dato. status: unverified | public-source | confirmed-by-business. Nada está confirmado por el negocio todavía.
   verification: {
     phone:     { status: "public-source", source: "Turismo oficial, Facebook, prensa local", updatedAt: "2026-09-29", verifiedBy: null },

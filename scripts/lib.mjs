@@ -126,6 +126,18 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
   if (Array.isArray(S.gallery)) S.gallery.forEach((g, n) => image(`gallery[${n}]`, g, { altRequired: true })); else bad('gallery', 'required array');
   if (isObj(S.hero)) { if (S.hero.image !== null && S.hero.image !== undefined) image('hero.image', S.hero.image, { altRequired: false }); } else bad('hero', 'required object {image}');
 
+  // "Antes de venir": solo se publica lo confirmado por el negocio
+  if (S.practical !== undefined) {
+    if (!Array.isArray(S.practical)) bad('practical', 'array');
+    else S.practical.forEach((x, i) => {
+      if (!isObj(x)) return bad(`practical[${i}]`, 'objeto {label, text, status, verifiedBy, updatedAt}');
+      str(`practical[${i}].label`, x.label); str(`practical[${i}].text`, x.text);
+      if (!VERIFY_STATUS.includes(x.status)) bad(`practical[${i}].status`, VERIFY_STATUS.join(' | '));
+      if (x.status === 'confirmed-by-business') { if (!x.verifiedBy) bad(`practical[${i}].verifiedBy`, 'requerido si status es confirmed-by-business'); if (!isRealDate(x.updatedAt)) bad(`practical[${i}].updatedAt`, 'fecha real YYYY-MM-DD'); }
+      else warnings.push(`practical[${i}] (${x.label}): no se publica hasta que status sea confirmed-by-business`);
+    });
+  }
+
   // Trazabilidad opcional por dato (DQ-031)
   if (S.verification !== undefined) {
     if (!isObj(S.verification)) bad('verification', 'objeto');
