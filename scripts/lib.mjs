@@ -35,6 +35,7 @@ const isRealDate = s => {
 const MAPS_HOSTS = ['google.com', 'google.com.ar', 'maps.app.goo.gl', 'goo.gl'];
 const IMAGE_STATUS = ['authorized', 'pending'];
 const EVENT_STATUS = ['confirmed', 'historical', 'pending'];
+const VERIFY_STATUS = ['unverified', 'public-source', 'confirmed-by-business'];
 
 // ---------- Schema de data/site.js: errores con la ruta del campo ----------
 export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
@@ -105,6 +106,10 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
     if (e.time !== undefined && !(typeof e.time === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(e.time))) bad(`events[${i}].time`, 'formato HH:MM');
     str(`events[${i}].artist`, e.artist);
     if (!EVENT_STATUS.includes(e.status)) bad(`events[${i}].status`, EVENT_STATUS.join(' | '));
+    // Campos opcionales (DQ-033)
+    ['title', 'type', 'price', 'reservation'].forEach(k => { if (e[k] !== undefined && !(typeof e[k] === 'string' && e[k].trim())) bad(`events[${i}].${k}`, 'string no vacío'); });
+    if (e.endTime !== undefined && !(typeof e.endTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(e.endTime))) bad(`events[${i}].endTime`, 'formato HH:MM');
+    if (e.url !== undefined) httpsOrNull(`events[${i}].url`, e.url);
   }); else bad('events', 'required array');
 
   // Imágenes (galería + hero)
@@ -114,10 +119,23 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
     if (altRequired) str(`${p}.alt`, i.alt); else if (typeof i.alt !== 'string') bad(`${p}.alt`, 'string (puede ser "" si es decorativa)');
     ['w', 'h'].forEach(k => { if (!(Number.isInteger(i[k]) && i[k] > 0)) bad(`${p}.${k}`, 'positive integer'); });
     if (!IMAGE_STATUS.includes(i.status)) bad(`${p}.status`, IMAGE_STATUS.join(' | '));
-    if (i.credit !== undefined && typeof i.credit !== 'string') bad(`${p}.credit`, 'string');
+    ['credit', 'caption', 'authorizedBy'].forEach(k => { if (i[k] !== undefined && typeof i[k] !== 'string') bad(`${p}.${k}`, 'string'); });
+    if (i.authorizedAt !== undefined && !isRealDate(i.authorizedAt)) bad(`${p}.authorizedAt`, 'fecha real YYYY-MM-DD');
+    if (i.status === 'authorized' && !i.authorizedBy) warnings.push(`${p}: authorized sin authorizedBy (registrar quién autorizó)`);
   };
   if (Array.isArray(S.gallery)) S.gallery.forEach((g, n) => image(`gallery[${n}]`, g, { altRequired: true })); else bad('gallery', 'required array');
   if (isObj(S.hero)) { if (S.hero.image !== null && S.hero.image !== undefined) image('hero.image', S.hero.image, { altRequired: false }); } else bad('hero', 'required object {image}');
+
+  // Trazabilidad opcional por dato (DQ-031)
+  if (S.verification !== undefined) {
+    if (!isObj(S.verification)) bad('verification', 'objeto');
+    else Object.entries(S.verification).forEach(([k, v]) => {
+      if (!isObj(v)) return bad(`verification.${k}`, 'objeto {status, source, updatedAt, verifiedBy}');
+      if (!VERIFY_STATUS.includes(v.status)) bad(`verification.${k}.status`, VERIFY_STATUS.join(' | '));
+      if (v.updatedAt !== null && !isRealDate(v.updatedAt)) bad(`verification.${k}.updatedAt`, 'fecha real YYYY-MM-DD');
+      if (v.status === 'confirmed-by-business' && !v.verifiedBy) bad(`verification.${k}.verifiedBy`, 'requerido si status es confirmed-by-business');
+    });
+  }
 
   return { errors, warnings };
 }

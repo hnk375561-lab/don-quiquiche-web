@@ -35,15 +35,15 @@
     const today = localISO();
     const items = nodes(S.events.filter(e => e && e.status === 'confirmed' && e.date >= today), e => {
       const li = el('li'); const t = el('time', { datetime: e.date }, new Date(e.date + 'T12:00').toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' }) + (e.time ? ' · ' + e.time + ' h' : ''));
-      li.append(t, ' ', el('strong', {}, e.artist)); return li;
+      li.append(t, ' ', el('strong', {}, e.title ? `${e.title} — ${e.artist}` : e.artist)); return li;
     });
-    if (items.length) $('#events').replaceChildren(...items); else { $('#events').hidden = true; $('#no-events').hidden = false; }
+    if (items.length) { $('#events').replaceChildren(...items); $('#events').hidden = false; $('#no-events').hidden = true; }
   });
 
   // Galería y hero: solo material autorizado y con ruta local válida
   step('galería', () => {
     const g = S.gallery.filter(i => i && i.status === 'authorized' && isAsset(i.src));
-    const figs = nodes(g, i => { const f = el('figure'); const im = el('img', { src: i.src, width: i.w, height: i.h, alt: i.alt, decoding: 'async' }); if (i !== g[0]) im.loading = 'lazy'; f.append(im); if (i.credit) f.append(el('figcaption', {}, i.credit)); return f; });
+    const figs = nodes(g, i => { const f = el('figure'); const im = el('img', { src: i.src, width: i.w, height: i.h, alt: i.alt, decoding: 'async' }); if (i !== g[0]) im.loading = 'lazy'; f.append(im); const cap = [i.caption, i.credit && 'Foto: ' + i.credit].filter(Boolean).join(' · '); if (cap) f.append(el('figcaption', {}, cap)); return f; });
     if (!figs.length) return;
     $('#galeria').hidden = false; $$('[href="#galeria"]').forEach(a => a.hidden = false); $('#gallery').replaceChildren(...figs);
   });

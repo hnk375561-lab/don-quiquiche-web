@@ -22,8 +22,6 @@ header{position:fixed;inset:0 0 auto;z-index:50;transition:background .25s}heade
 .hero h1{font-size:clamp(3.2rem,15vw,9rem);letter-spacing:-.03em}.hero h1 span{display:block;font-style:italic;color:var(--oro);font-size:.42em;letter-spacing:0;margin-bottom:.15em}
 .hero p.lead{max-width:34rem;font-size:1.2rem;margin:1.4rem 0 2rem;color:var(--arena)}
 .acts{display:flex;flex-wrap:wrap;gap:.75rem}
-.trio{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:2.2rem;font:600 .8rem var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--crema)}
-.trio span+span::before{content:"·";margin-right:1.2rem;color:var(--brasa)}
 /* claro */
 .paper{background:var(--crema);color:var(--carbon)}.paper .eyebrow{color:#a33a21}
 .split{display:grid;gap:2rem}@media(min-width:56rem){.split{grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start}}
