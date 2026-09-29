@@ -5,8 +5,8 @@ window.SITE = {
   hero: { image: {src:"assets/hero-parrilla.webp", w:1600, h:738, portrait:{src:"assets/hero-parrilla-m.webp", w:800, h:738}, alt:"Parrilla al aire libre con pollo, chorizos y morcillas sobre las brasas, junto a un fuego de leña", status:"authorized"} }, // foto de la página del local; PENDIENTE: OK escrito del dueño (authorizedBy/authorizedAt) // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
   // SEO / redes: el build genera <title>, description, og:* y twitter:* desde acá (no editar index.html a mano)
   title: "Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay",
-  description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios y cómo llegar.",
-  socialDescription: "Parrilla, mesa y música en Ruta 39. Concepción del Uruguay, Entre Ríos.",
+  description: "Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña. Consultá horarios y cómo llegar.",
+  socialDescription: "Parrilla, mesa y música en Concepción del Uruguay, Entre Ríos.",
   locale: "es_AR",
   ogType: "website", // "restaurant" no es un tipo OG válido (sería "restaurant.restaurant" con propiedades extra); el tipo de negocio ya está en el JSON-LD
   name: "Parrilla Don Quiquiche",

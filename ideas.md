@@ -2,31 +2,22 @@
 
 ## Decisión
 
-**Mesa larga / fuego vivo**: una experiencia editorial, nocturna y táctil que trata la parrilla como protagonista visual y la peña como pulso cultural. La dirección parte de las fotografías reales del local y evita inventar platos, precios o promesas no verificadas.
+**Casa abierta / edición de mesa.** Don Quiquiche se presenta como un restaurante argentino contemporáneo y cercano: una casa donde el fuego, los platos abundantes y la música conviven sin necesidad de explicarse con símbolos folclóricos. La web adopta el tono de una revista gastronómica y de una campaña de marca: sobria, cálida, fotográfica y con mucho aire.
 
-## Principios
+## Sistema de marca
 
-- **Impacto inmediato:** hero fotográfico a sangre, titular corto y CTA visible.
-- **Lujo honesto:** contraste carbón / hueso / cobre, serif de alto contraste y microcopy preciso; sin simular una marca que el negocio no tiene.
-- **Composición editorial:** bloques asimétricos, numeración, líneas finas, ritmo de revista y galería tipo contact sheet.
-- **Conversión clara:** reservar, consultar carta, llamar y llegar aparecen en momentos estratégicos.
-- **Contenido real:** sólo se publican Ruta 39, Concepción del Uruguay, parrilla, asado, parrillada, peña, música en vivo, horarios públicos, teléfono, WhatsApp e Instagram.
+La paleta evita el negro-dorado y el verde cartel. Trabaja con marfil de papel, tinta azul petróleo muy oscura, terracota cocida y un azul grisáceo que funciona como contrapunto silencioso. El color aparece en grandes superficies, no en adornos.
 
-## Sistema visual
+Playfair Display aporta el gesto editorial de una carta impresa; Inter mantiene la información, navegación y acciones neutras y precisas. El logotipo es tipográfico, sin monograma temático ni íconos de ruta.
 
-- **Paleta:** carbón profundo `#10100f`, hueso `#f1eadf`, cobre brasa `#c9683d`, amarillo manteca `#e3b96a`, verde oliva apagado `#77755a`.
-- **Tipografía:** Playfair Display para titulares y citas; Inter para navegación, datos y CTAs.
-- **Firma:** monograma circular `DQ` + regla vertical; números de sección y etiquetas monoespaciadas.
-- **Texturas:** sólo degradados CSS, líneas y máscaras; nada de recursos externos.
+## Composición
+
+La página se comporta como una secuencia de páginas de revista: un hero a sangre, una apertura con una sola frase, un díptico gastronómico con fotografías de distinto tamaño, una escena de sala a gran escala, un mosaico de archivo y finalmente una ficha clara de visita. Las imágenes se recortan, se superponen y se desplazan respecto de la retícula para producir tensión, sin convertir el sitio en un collage.
 
 ## Interacción
 
-- Header que se vuelve sólido al hacer scroll.
-- Entrada suave por bloques con `IntersectionObserver`.
-- Scroll horizontal táctil para la galería en móvil.
-- Menú móvil accesible con Escape, foco y cierre al navegar.
-- Respeto a `prefers-reduced-motion` y control explícito para pausar animaciones.
+La navegación aparece como una línea editorial mínima. El header cambia de fondo al hacer scroll; los bloques entran suavemente cuando llegan al viewport; la galería usa una composición estática en desktop y una secuencia vertical en móvil. No se usan animaciones para demostrar tecnología. Se respeta `prefers-reduced-motion` y existe un control discreto para pausar el movimiento.
 
-## Arquitectura
+## Contenido
 
-Una sola página estática, SEO-friendly y sin dependencias nuevas. Se mantienen los scripts de build/check, los assets reales y los enlaces comerciales existentes. El hero usa la foto autorizada de la parrilla; la galería usa las fotos autorizadas del local y los platos.
+Sólo se mantienen datos públicos existentes: parrilla, asado, parrillada, ambiente familiar, música en vivo, horarios públicos, teléfono, WhatsApp, Instagram y Concepción del Uruguay. No se inventan platos, precios, eventos, reseñas ni promesas de servicio. El concepto visual no convierte la dirección real del local en una temática.
