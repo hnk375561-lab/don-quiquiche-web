@@ -12,7 +12,7 @@ window.SITE = {
     eventos: "Hola, quería consultar por las próximas fechas de música en Parrilla Don Quiquiche."
   },
   instagram: "https://www.instagram.com/parrilla.donquiquiche/", instagramHandle: "@parrilla.donquiquiche", // A
-  facebook: null,   // PENDIENTE: URL exacta sin verificar
+  facebook: "https://www.facebook.com/people/Parrilla-Don-Quiquiche/100070144780215/", // B: página encontrada en búsqueda 28/09/2026; mismo teléfono y "Ruta 39". Turismo oficial cita "Facebook: Parrilla Don Quiquiche"
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay", // B: pin oficial PENDIENTE
   hoursStatus: "public-source", // B: coincidencia en directorios, sin confirmación del negocio
   hours: [

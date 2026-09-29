@@ -4,6 +4,7 @@
   $$('[data-wa]').forEach(a => { a.href = wa(a.dataset.wa); a.target = '_blank'; a.rel = 'noopener'; });
   $$('[data-map]').forEach(a => { a.href = S.mapsUrl; a.target = '_blank'; a.rel = 'noopener'; });
   $$('[data-ig]').forEach(a => { a.href = S.instagram; a.target = '_blank'; a.rel = 'noopener'; });
+  $$('[data-fb]').forEach(a => { if (S.facebook) { a.href = S.facebook; a.target = '_blank'; a.rel = 'noopener'; } else a.closest('li').hidden = true; });
   $$('[data-tel]').forEach(a => { a.href = 'tel:' + S.phone; if (!a.children.length && !a.textContent.trim()) a.textContent = S.phoneLabel; });
   $$('[data-menu]').forEach(a => { if (S.menu.url) { a.href = S.menu.url; a.target = '_blank'; a.rel = 'noopener'; } else { a.href = wa('carta'); a.target = '_blank'; a.rel = 'noopener'; } });
   $$('[data-address]').forEach(e => e.textContent = S.address);
