@@ -129,3 +129,25 @@ dl.h.sm{font-size:.9rem}dl.h.sm dt{font-size:1.05rem}
 html.calm *,html.calm *::before,html.calm *::after{animation:none!important;transition:none!important}
 .lnk{background:none;border:0;padding:0;margin-top:.5rem;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:.2em;cursor:pointer;min-height:44px}
 .lnk:hover{color:var(--oro)}
+
+/* ================= Capa de movimiento (animation.js · GSAP). Solo actúa si GSAP cargó; sin JS todo sigue visible ================= */
+.gx-fire{position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#ffd08a,#f97316 35%,#c2482b 75%,#4a1d10);will-change:clip-path}
+.gx-marq div{animation:none!important;will-change:transform}
+.gx-line{padding-block:.1em;margin-block:-.1em}
+.gx-prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,var(--oro),var(--fuego));transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+.gx-glow{position:absolute;left:0;top:0;width:34rem;height:34rem;margin:-17rem 0 0 -17rem;border-radius:50%;pointer-events:none;z-index:1;opacity:0;background:radial-gradient(closest-side,rgba(255,150,60,.28),rgba(234,88,12,.1) 55%,transparent);mix-blend-mode:screen;will-change:transform}
+.btn.gx-mag{transition:background .18s,border-color .18s;will-change:transform}
+.gx-ph{display:block;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;overflow:hidden;border-radius:var(--r);cursor:pointer;line-height:0}
+.gx-ph img{will-change:transform;transform-origin:50% 50%}
+.gx-cur{position:fixed;left:0;top:0;z-index:90;pointer-events:none;display:grid;place-items:center;width:5.25rem;height:5.25rem;border-radius:50%;background:var(--oro);color:var(--carbon);font:700 .78rem/1 var(--sans);letter-spacing:.02em}
+html.gx-curs .gx-ph{cursor:none}
+html.gx-lock{overflow:hidden}
+.gx-lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--crema);overflow:hidden}
+.gx-lb[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem}
+.gx-lb::backdrop{background:transparent}
+.gx-bd{position:absolute;inset:0;background:rgba(12,8,5,.94)}
+.gx-lb img{position:relative;z-index:1;max-width:min(92vw,80rem);max-height:76vh;width:auto;height:auto;object-fit:contain;will-change:transform,clip-path}
+.gx-cap{position:relative;z-index:1;margin:0;max-width:min(92vw,44rem);text-align:center;font-size:.9rem;line-height:1.4;color:var(--arena)}
+.gx-x{position:absolute;z-index:2;top:max(1rem,env(safe-area-inset-top));right:1rem;width:48px;height:48px;border-radius:50%;border:2px solid var(--oro);background:rgba(23,17,13,.8);color:var(--crema);font-size:1.1rem;cursor:pointer}
+.gx-x:hover{background:var(--oro);color:var(--carbon)}
+.hero .hero-in{width:100%} /* evita que el bloque se encoja/centre mientras SplitText parte el título (salto de layout en el intro) */
