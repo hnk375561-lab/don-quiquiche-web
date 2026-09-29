@@ -72,7 +72,7 @@ export function render(html, S, { year = new Date().getFullYear(), partial = fal
     : '';
   const gal = (S.gallery || []).filter(ok);
   const galleryHtml = gal.length
-    ? `<section class="archivo" id="galeria"><div class="archivo-head"><p class="kicker">Archivo</p><h2>Lo que queda<br>en la memoria.</h2><p>Una selección de momentos reales del local y de la mesa.</p></div><div id="gallery">${gal.map((i, idx) => { const cls = idx === 0 ? 'archive-wide' : idx === 3 ? 'archive-tall' : ''; const cap = [i.caption, i.credit].filter(Boolean).join(' · '); return `<figure class="${cls}"><img src="${esc(i.src)}" width="${i.w}" height="${i.h}" alt="${esc(i.alt)}" loading="lazy" decoding="async">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`; }).join('')}</div></section>`
+    ? `<section class="archivo" id="galeria"><div class="archivo-head"><h2>Lo que queda<br>en la memoria.</h2><p>Una selección de momentos reales del local y de la mesa.</p></div><div id="gallery">${gal.map((i, idx) => { const cls = 'g' + (idx + 1); const cap = [i.caption, i.credit].filter(Boolean).join(' · '); return `<figure class="${cls}"><img src="${esc(i.src)}" width="${i.w}" height="${i.h}" alt="${esc(i.alt)}" loading="lazy" decoding="async">${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}</figure>`; }).join('')}</div></section>`
     : '';
 
   let h = html;

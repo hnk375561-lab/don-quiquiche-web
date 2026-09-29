@@ -14,8 +14,27 @@
 
   /* Header y menú móvil */
   const header = $('#site-header'), burger = $('#burger'), nav = $('#nav');
-  const onScroll = () => header.classList.toggle('scrolled', scrollY > 40);
+  let lastY = scrollY;
+  const onScroll = () => {
+    const y = scrollY, dy = y - lastY; header.classList.toggle('scrolled', y > 40);
+    if (Math.abs(dy) > 6) { header.classList.toggle('hide', dy > 0 && y > 240); lastY = y; }
+  };
   onScroll(); addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('focusin', e => { if (header.contains(e.target)) header.classList.remove('hide'); });
+
+  /* Capítulo actual: tono de la cabecera (claro/oscuro según el cielo) y rótulo con la hora */
+  const chap = $('#chapter'), secs = $$('main > section[data-tone]');
+  if ('IntersectionObserver' in window && secs.length) {
+    const hourEl = document.createElement('b'), nameEl = document.createElement('i');
+    chap.append(hourEl, nameEl); let cur = null;
+    const set = s => {
+      if (s === cur) return; cur = s; header.dataset.tone = s.dataset.tone;
+      hourEl.textContent = s.dataset.hour || ''; nameEl.textContent = s.dataset.chapter || '';
+      chap.hidden = !s.dataset.hour || s.id === 'top';
+    };
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) set(e.target); }), { rootMargin: '-6% 0px -90% 0px' });
+    secs.forEach(s => io.observe(s));
+  }
   const setMenu = (open, focus) => {
     nav.classList.toggle('open', open); header.classList.toggle('menu-open', open);
     burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
