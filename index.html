@@ -4,24 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay</title>
-<meta name="description" content="Parrilla Don Quiquiche en Concepción del Uruguay. Parrilla, ambiente familiar y propuesta de peña sobre Ruta 39. Consultá horarios, carta y cómo llegar.">
+<meta name="description" content="Parrilla Don Quiquiche en Concepción del Uruguay. Ambiente familiar, parrilla y espíritu de peña sobre Ruta 39. Consultá horarios, carta y cómo llegar.">
 <meta name="theme-color" content="#17110d">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<!-- PENDIENTE al tener dominio: <link rel="canonical">, og:url, og:image (foto real 1200x630), sitemap.xml -->
 <meta property="og:type" content="restaurant"><meta property="og:locale" content="es_AR">
 <meta property="og:title" content="Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay">
 <meta property="og:description" content="Parrilla, mesa y música en Ruta 39. Concepción del Uruguay, Entre Ríos.">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Parrilla Don Quiquiche","alternateName":"Parrilla Don Quiquiche, Ambiente Familiar, Peña","telephone":"+543442581870","address":{"@type":"PostalAddress","streetAddress":"Ruta Provincial 39","addressLocality":"Concepción del Uruguay","addressRegion":"Entre Ríos","addressCountry":"AR"},"sameAs":["https://www.instagram.com/parrilla.donquiquiche/","https://www.facebook.com/people/Parrilla-Don-Quiquiche/100070144780215/"],"hasMap":"https://www.google.com/maps/search/?api=1&query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay"}</script>
+<meta name="twitter:title" content="Parrilla Don Quiquiche | Parrilla y Peña en Concepción del Uruguay">
+<meta name="twitter:description" content="Parrilla, mesa y música en Ruta 39. Concepción del Uruguay, Entre Ríos.">
+<!--SEO-->
+<!-- PENDIENTE: definir siteUrl en data/site.js y correr node scripts/build.mjs -->
+<!--/SEO-->
+<!--LD--><script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"Parrilla Don Quiquiche","alternateName":"Parrilla Don Quiquiche, Ambiente Familiar, Peña","telephone":"+543442581870","address":{"@type":"PostalAddress","streetAddress":"Ruta Provincial 39","addressLocality":"Concepción del Uruguay","addressRegion":"Entre Ríos","addressCountry":"AR"},"sameAs":["https://www.instagram.com/parrilla.donquiquiche/","https://www.facebook.com/people/Parrilla-Don-Quiquiche/100070144780215/"],"hasMap":"https://www.google.com/maps/search/?api=1&query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay"}</script><!--/LD-->
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip" href="#main">Saltar al contenido</a>
 <header><div class="wrap bar">
   <a class="logo" href="#top" aria-label="Parrilla Don Quiquiche, inicio">Don <b>Quiquiche</b></a>
-  <button id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menú">☰</button>
+  <button id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
   <nav id="nav" aria-label="Principal">
-    <a href="#lugar">El lugar</a><a href="#carta">Carta</a><a href="#pena">Peña</a><a href="#galeria" hidden>Fotos</a><a href="#horarios">Horarios</a><a href="#llegar">Cómo llegar</a>
+    <a href="#lugar">El lugar</a><a href="#carta">La propuesta</a><a href="#pena">Peña</a><a href="#galeria" hidden>Fotos</a><a href="#horarios">Horarios</a><a href="#llegar">Cómo llegar</a>
     <a class="btn btn-p" data-wa="general">WhatsApp</a>
   </nav>
 </div></header>
@@ -44,36 +48,35 @@
   <p class="eyebrow">La propuesta</p><h2>De la parrilla a la mesa</h2>
   <ul class="cats" id="cats"></ul>
   <p class="note">Categorías mencionadas en fuentes públicas. La carta y los precios cambian: pedila actualizada y te la pasan.</p>
-  <div class="acts" style="margin-top:1.5rem"><a class="btn btn-p" data-menu>Pedir la carta actual</a></div>
+  <div class="acts mt"><a class="btn btn-p" data-menu data-alt="Consultar la carta por WhatsApp">Ver carta</a></div>
 </div></section>
 
 <section class="peña-bg" id="pena"><div class="wrap rv">
   <p class="eyebrow">La peña</p><h2>Parrilla con espíritu de peña</h2>
-  <p style="max-width:38rem;font-size:1.15rem">Además de la parrilla, Don Quiquiche aparece asociado públicamente a noches con música en vivo y encuentros culturales.</p>
+  <p class="lede">Además de la parrilla, Don Quiquiche aparece asociado públicamente a noches con música en vivo y encuentros culturales.</p>
   <ul id="events"></ul>
-  <p id="no-events" hidden style="color:var(--arena)">Las próximas fechas se anuncian en Instagram.</p>
-  <div class="acts" style="margin-top:1.5rem"><a class="btn btn-g" data-ig>Ver novedades en Instagram</a><a class="btn btn-g" data-wa="eventos">Consultar por fechas</a></div>
+  <p id="no-events" class="ondark" hidden>Las próximas fechas se anuncian en Instagram.</p>
+  <div class="acts mt"><a class="btn btn-g" data-ig>Ver novedades en Instagram</a><a class="btn btn-g" data-wa="eventos">Consultar por fechas</a></div>
 </div></section>
 
-<section id="galeria" hidden><div class="wrap"><h2 style="margin-bottom:1.5rem">Fotos</h2><div id="gallery"></div></div></section>
+<section id="galeria" hidden><div class="wrap"><h2 class="h2b">Fotos</h2><div id="gallery"></div></div></section>
 
 <section class="paper" id="horarios"><div class="wrap split">
-  <div class="rv"><p class="eyebrow">Horarios</p><h2>Cuándo ir</h2><p class="note" style="margin-top:1rem">Horarios informados en directorios públicos; pueden variar en fechas especiales. Confirmá por WhatsApp.</p></div>
-  <dl class="h rv" data-hours style="color:var(--carbon)"></dl>
+  <div class="rv"><p class="eyebrow">Horarios</p><h2>Cuándo ir</h2><p class="note mt">Horarios informados en directorios públicos; pueden variar en fechas especiales. Confirmá por WhatsApp.</p></div>
+  <dl class="h rv" data-hours></dl>
 </div></section>
 
 <section class="dark2" id="llegar"><div class="wrap rv">
   <p class="eyebrow">Cómo llegar</p><h2>Ruta Provincial 39</h2>
   <p class="addr" data-address></p>
   <div class="acts"><a class="btn btn-p" data-map>Abrir en Google Maps</a><a class="btn btn-g" data-tel>Llamar</a><a class="btn btn-g" data-wa="general">Escribir por WhatsApp</a></div>
-  <p class="note" style="margin-top:1.5rem" id="rep"></p>
 </div></section>
 </main>
 <footer><div class="wrap">
   <div><h3>Parrilla Don Quiquiche</h3><p>Ambiente familiar · Peña<br><span data-address></span></p></div>
   <div><h3>Contacto</h3><ul><li><a data-tel></a></li><li><a data-wa="general">WhatsApp</a></li><li><a data-ig>Instagram</a></li><li><a data-fb>Facebook</a></li><li><a data-map>Google Maps</a></li></ul></div>
-  <div><h3>Horarios</h3><dl class="h" data-hours style="font-size:.9rem"></dl></div>
+  <div><h3>Horarios</h3><dl class="h sm" data-hours></dl><p class="note">Sujetos a cambios en fechas especiales.</p></div>
 </div><div class="wrap"><small>© <span id="year"></span> Parrilla Don Quiquiche</small></div></footer>
-<nav class="sticky" aria-label="Acciones rápidas"><a class="btn btn-p" data-wa="reserva">WhatsApp</a><a class="btn btn-g" data-menu>Carta</a><a class="btn btn-g" data-map>Llegar</a></nav>
+<nav class="sticky" aria-label="Acciones rápidas"><a class="btn btn-p" data-wa="reserva">WhatsApp</a><a class="btn btn-g" data-menu data-alt="Consultar">Carta</a><a class="btn btn-g" data-map>Llegar</a></nav>
 <script src="data/site.js"></script><script src="main.js" defer></script>
 </body></html>

@@ -1,5 +1,8 @@
 /* ÚNICA fuente de datos editable. Cada dato: status + fuente (ver README). */
 window.SITE = {
+  siteUrl: null, // PENDIENTE: dominio final, ej. "https://dominio.com.ar" (sin barra final). Con esto `node scripts/build.mjs` genera canonical, og:url, sitemap y robots.
+  ogImage: null, // PENDIENTE: ruta a imagen 1200x630 real y autorizada, ej. "assets/og.jpg"
+  hero: { image: null }, // opcional: {src,w,h,alt,status:"authorized"}; si no hay, se usa el hero CSS
   name: "Parrilla Don Quiquiche",
   fullName: "Parrilla Don Quiquiche, Ambiente Familiar, Peña",
   address: "Ruta Provincial 39, Concepción del Uruguay, Entre Ríos", // A (turismo/Google). "Ruta 39 y 42": PENDIENTE
@@ -24,5 +27,5 @@ window.SITE = {
   menu: { url: null, items: [] },     // PENDIENTE: carta oficial. Si menu.url existe, "Ver carta" abre ese recurso.
   events: [ /* {date:"YYYY-MM-DD", time:"21:00", artist:"...", status:"confirmed"} — solo confirmed + futuras se muestran */ ],
   gallery: [ /* {src:"assets/x.webp", w:1200, h:800, alt:"...", credit:"...", status:"authorized"} — solo authorized */ ],
-  reputation: { text: "4,1/5 en Google (≈245 reseñas)", source: "Restaurant Guru", date: "28/09/2026" } // B, dinámico
+  reputation: { /* solo interno: NO se muestra en el sitio (dato de tercero, dinámico) */ text: "4,1/5 en Google (≈245 reseñas)", source: "Restaurant Guru", date: "28/09/2026" } // B, dinámico
 };

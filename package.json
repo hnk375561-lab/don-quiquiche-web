@@ -1,0 +1,5 @@
+{
+  "name": "don-quiquiche-web",
+  "private": true,
+  "scripts": { "build": "node scripts/build.mjs", "start": "python3 -m http.server 8080" }
+}
