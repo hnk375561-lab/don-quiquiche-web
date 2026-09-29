@@ -6,7 +6,7 @@
 
 ## Sistema de marca
 
-La paleta evita el negro-dorado y el verde cartel. Trabaja con marfil de papel, tinta azul petróleo muy oscura, terracota cocida y un azul grisáceo que funciona como contrapunto silencioso. El color aparece en grandes superficies, no en adornos.
+La paleta evita el negro-dorado, el verde cartel y el petróleo. Trabaja con tinta borgoña profunda (el vino de la mesa), marfil de papel y arcilla cocida (la brasa). Las fotos se corrigieron para quitar el verde de las ventanas y del pasto y acercarlas a esa paleta. El color aparece en grandes superficies, no en adornos.
 
 Playfair Display aporta el gesto editorial de una carta impresa; Inter mantiene la información, navegación y acciones neutras y precisas. El logotipo es tipográfico, sin monograma temático ni íconos de ruta.
 
@@ -16,7 +16,7 @@ La página se comporta como una secuencia de páginas de revista: un hero a sang
 
 ## Interacción
 
-La navegación aparece como una línea editorial mínima. El header cambia de fondo al hacer scroll; los bloques entran suavemente cuando llegan al viewport; la galería usa una composición estática en desktop y una secuencia vertical en móvil. No se usan animaciones para demostrar tecnología. Se respeta `prefers-reduced-motion` y existe un control discreto para pausar el movimiento.
+La navegación aparece como una línea editorial mínima. El header cambia de fondo al hacer scroll; los bloques entran suavemente una sola vez al llegar al viewport. No hay cintas en movimiento, zoom automático ni indicadores pulsantes: el movimiento lo pone quien scrollea. Sin numeraciones ni sellos que compitan con las fotografías. Se respeta `prefers-reduced-motion` y existe un control discreto para pausar el movimiento.
 
 ## Contenido
 
