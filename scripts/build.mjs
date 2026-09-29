@@ -16,9 +16,10 @@ const ld = { '@context': 'https://schema.org', '@type': 'Restaurant', name: S.na
   address: { '@type': 'PostalAddress', streetAddress: street, addressLocality: city, addressRegion: region, addressCountry: 'AR' },
   sameAs: [S.instagram, S.facebook].filter(Boolean), hasMap: S.mapsUrl };
 if (S.siteUrl) ld.url = S.siteUrl; if (S.siteUrl && S.ogImage) ld.image = `${S.siteUrl}/${S.ogImage}`;
-const seo = S.siteUrl ? [`<link rel="canonical" href="${S.siteUrl}/">`, `<meta property="og:url" content="${S.siteUrl}/">`,
+const heroPre = S.hero.image && S.hero.image.status === 'authorized' ? `<link rel="preload" as="image" href="${S.hero.image.src}" fetchpriority="high">\n` : '';
+const seo = heroPre + (S.siteUrl ? [`<link rel="canonical" href="${S.siteUrl}/">`, `<meta property="og:url" content="${S.siteUrl}/">`,
   ...(S.ogImage ? [`<meta property="og:image" content="${S.siteUrl}/${S.ogImage}">`, '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">', `<meta property="og:image:alt" content="${S.name}">`, `<meta name="twitter:image" content="${S.siteUrl}/${S.ogImage}">`] : [])].join('\n')
-  : '<!-- PENDIENTE: definir siteUrl en data/site.js y correr node scripts/build.mjs -->';
+  : '<!-- PENDIENTE: definir siteUrl en data/site.js y correr node scripts/build.mjs -->');
 let h = fs.readFileSync('index.html', 'utf8');
 h = h.replace(/<!--LD-->[\s\S]*?<!--\/LD-->/, `<!--LD--><script type="application/ld+json">${JSON.stringify(ld)}</script><!--/LD-->`)
      .replace(/<!--SEO-->[\s\S]*?<!--\/SEO-->/, `<!--SEO-->\n${seo}\n<!--/SEO-->`)

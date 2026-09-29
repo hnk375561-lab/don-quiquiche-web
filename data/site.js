@@ -10,7 +10,7 @@ window.SITE = {
   whatsapp: "5493442581870",                                        // A (turismo oficial: +54 9 3442 581870)
   waMessages: {
     general: "Hola, quería hacer una consulta sobre Parrilla Don Quiquiche.",
-    reserva: "Hola, quería consultar por una reserva en Parrilla Don Quiquiche.",
+    reserva: "Hola, quería consultar disponibilidad en Parrilla Don Quiquiche.",
     carta: "Hola, ¿me pasan la carta actual de Parrilla Don Quiquiche?",
     eventos: "Hola, quería consultar por las próximas fechas de música en Parrilla Don Quiquiche."
   },

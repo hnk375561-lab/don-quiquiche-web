@@ -38,3 +38,9 @@ Nota: la auditoría V4 se hizo contra el `main` público, que tenía una mezcla 
 - Contraste WCAG AA: eyebrow sobre crema `#a33a21`, hover del botón primario `#a83a20`. El textura de ruido del hero solo en pantallas ≥ 56rem.
 - "Carta": aria-label "Consultar la carta por WhatsApp" mientras no haya carta oficial.
 - No se agregó manifest/PWA ni 404 (la auditoría los marca como innecesarios/baja prioridad).
+
+## Ronda "Auditoría final" (29/09/2026)
+- CTA del hero: "Consultar disponibilidad" (no afirma un sistema de reservas). Mensaje de WhatsApp acorde.
+- Textos de horarios y carta sin exponer la fuente de terceros al visitante; la trazabilidad queda en `data/site.js` y en este README.
+- `assets/apple-touch-icon.png` (180x180) agregado. Preload del hero: el build lo agrega solo cuando `hero.image` está autorizado.
+- Sin cambios en datos: nada de email, segundo teléfono, delivery, reservas, precios ni agenda.
