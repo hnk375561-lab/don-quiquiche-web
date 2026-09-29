@@ -16,7 +16,7 @@ window.SITE = {
   whatsapp: "5493442581870",                                        // A (turismo oficial: +54 9 3442 581870)
   waMessages: {
     general: "Hola, quería hacer una consulta sobre Parrilla Don Quiquiche.",
-    reserva: "Hola, quería consultar disponibilidad en Parrilla Don Quiquiche.",
+    reserva: "Hola, quería reservar una mesa en Parrilla Don Quiquiche.",
     carta: "Hola, ¿me pasan la carta actual de Parrilla Don Quiquiche?",
     eventos: "Hola, quería consultar por las próximas fechas de música en Parrilla Don Quiquiche."
   },
@@ -24,6 +24,13 @@ window.SITE = {
   facebook: null, // DQ-005: medida cautelar. Hay 3 URLs de Facebook (…/people/…/100070144780215 con ~45 likes; profile.php?id=100063776400477 con ~1.200; /pages/…/459810217427465). PENDIENTE: que el dueño indique la oficial.
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Parrilla+Don+Quiquiche+Concepcion+del+Uruguay", // B: pin oficial PENDIENTE
   hoursStatus: "public-source", // B: coincidencia en directorios, sin confirmación del negocio
+  // Estado "Abierto ahora" (se calcula en el navegador, hora de Argentina). Mismo origen que `hours`: directorios, SIN confirmar.
+  // Sábado: se interpretó corrido 11:00–04:00 (cierra domingo 04:00). PENDIENTE confirmar con el dueño.
+  schedule: {
+    mon: [["11:00","15:00"],["20:00","24:00"]], tue: [["11:00","15:00"],["20:00","24:00"]], wed: [["11:00","15:00"],["20:00","24:00"]],
+    thu: [["11:00","15:00"],["20:00","24:00"]], fri: [["11:00","15:00"],["20:00","24:00"]],
+    sat: [["11:00","24:00"]], sun: [["00:00","04:00"],["11:00","15:00"]]
+  },
   hours: [
     ["Lunes a viernes", "11:00–15:00 · 20:00–00:00"],
     ["Sábado", "11:00–04:00"],

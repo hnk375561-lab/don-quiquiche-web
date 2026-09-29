@@ -86,6 +86,17 @@ export function validateSite(S, { exists = f => fs.existsSync(f) } = {}) {
   if (Array.isArray(S.hours) && S.hours.length) S.hours.forEach((h, i) => { if (!(Array.isArray(h) && h.length === 2 && str(`hours[${i}][0]`, h[0]) && str(`hours[${i}][1]`, h[1]))) bad(`hours[${i}]`, 'formato ["Día", "Horario"]'); });
   else bad('hours', 'array no vacío');
 
+  // Estado abierto/cerrado: { sun..sat: [["HH:MM","HH:MM" | "24:00"], ...] }
+  if (S.schedule !== undefined) {
+    const t = v => typeof v === 'string' && /^(([01]\d|2[0-3]):[0-5]\d|24:00)$/.test(v);
+    if (!isObj(S.schedule)) bad('schedule', 'objeto');
+    else ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'].forEach(d => {
+      const v = S.schedule[d];
+      if (!Array.isArray(v)) return bad(`schedule.${d}`, 'array de [apertura, cierre]');
+      v.forEach((x, i) => { if (!(Array.isArray(x) && x.length === 2 && t(x[0]) && t(x[1]) && x[0] < x[1])) bad(`schedule.${d}[${i}]`, 'formato ["HH:MM","HH:MM"] con apertura < cierre (usar "24:00" para medianoche)'); });
+    });
+  }
+
   // Categorías (sin duplicados)
   if (Array.isArray(S.categories) && S.categories.length) {
     const seen = new Set();

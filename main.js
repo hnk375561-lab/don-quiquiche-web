@@ -52,6 +52,17 @@
     if (!(hi && hi.status === 'authorized' && isAsset(hi.src))) return;
     const hero = $('.hero'); hero.prepend(el('div', { class: 'veil' })); hero.prepend(el('img', { class: 'hero-img', src: hi.src, width: hi.w, height: hi.h, alt: hi.alt || '', fetchpriority: 'high', decoding: 'async' }));
   });
+  // Estado "Abierto ahora": hora de Argentina (no la del dispositivo). Se oculta si no hay `schedule`.
+  step('estado', () => {
+    const box = $('#open-status'); if (!box || !S.schedule) return;
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Argentina/Buenos_Aires', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date()).map(x => [x.type, x.value]));
+    const day = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday)];
+    const m = t => t.split(':').reduce((h, x) => h * 60 + +x), now = +p.hour * 60 + +p.minute;
+    const spans = (S.schedule[day] || []).map(([a, b]) => [m(a), m(b), a]);
+    const open = spans.some(([a, b]) => now >= a && now < b), next = spans.find(([a]) => a > now);
+    $('#open-text').textContent = open ? 'Abierto ahora' : next ? 'Cerrado ahora · abre hoy a las ' + next[2] : 'Cerrado ahora';
+    box.classList.toggle('is-closed', !open); box.hidden = false;
+  });
   step('año', () => { $('#year').textContent = new Date().getFullYear(); });
 
   try {
