@@ -1,4 +1,4 @@
-# Parrilla Don Quiquiche — sitio estático
+ # Parrilla Don Quiquiche — sitio estático
 Sin build ni dependencias. Abrir `index.html` o `python3 -m http.server`. Desplegar la carpeta en cualquier hosting estático.
 **Editar datos:** `data/site.js` (teléfono, WhatsApp, horarios, redes, categorías, carta, eventos, galería). El JSON-LD de `index.html` repite teléfono/dirección/Instagram: actualizar también ahí.
 ## Pendientes (no inventados)
